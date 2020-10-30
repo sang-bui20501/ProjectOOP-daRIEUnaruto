@@ -8,8 +8,7 @@ import com.oop.GameController.State.PlayerState;
 public class GameManager extends GameState {
 	private static GameManager game_instance = null;
 
-	private GameManager() {
-	}
+	private GameManager() {}
 
 	public static GameManager getInstance() {
 		if (game_instance == null)

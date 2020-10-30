@@ -1,4 +1,4 @@
-package com.oop.GameController;
+package com.oop.GameController.Player;
 
 public class Player {
 	int hp;

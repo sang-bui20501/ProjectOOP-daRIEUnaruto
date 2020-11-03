@@ -11,11 +11,11 @@
 <h1> Distributions </h1>
 
   <li> @congtrung2k1 </li>
-  - Core system of the game
-  - Core gameplay of the game
-  - Implement UML class diagram
+  - Core system of the game <br/>
+  - Core gameplay of the game <br/>
+  - Implement UML class diagram <br/>
   
   <li> @sang-bui20501 </li>
-  - Networking system
-  - Design UML Diagram
-  - Gameplay mechanics
+  - Networking system <br/>
+  - Design UML Diagram <br/>
+  - Gameplay mechanics <br/>

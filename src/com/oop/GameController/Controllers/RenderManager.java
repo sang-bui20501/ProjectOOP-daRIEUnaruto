@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+
 /**
  * 
  * @author CongTrung
@@ -18,6 +19,8 @@ import javax.swing.JPanel;
  * background chia thanh luoi 5x5
  * player 1 stand in 2,2
  * player 2 stand in 4,4
+ * 
+ * player size: 205 px * 2xx px
  */
 
 public class RenderManager extends JPanel{
@@ -49,8 +52,7 @@ public class RenderManager extends JPanel{
 		
 		// get list of character from PlayerManager to here first
 		// assume that choose these 2 character.
-		//String[] players = {"sasuke", "itachi"};
-		String[] players = {"itachi", "itachi"};
+		String[] players = {"itachi", "sasuke"};
 				
 		
 		// draw Player 1
@@ -82,4 +84,5 @@ public class RenderManager extends JPanel{
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial", 1, 100));
 	}
+}
 

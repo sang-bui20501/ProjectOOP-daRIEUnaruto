@@ -1,11 +1,5 @@
 package com.oop.GameController.Player;
 
-/**
- * Material of 1 character.
- * 
- * @author CongTrung
- *
- */
 public class Player {
 	int hp;
 	int mana;

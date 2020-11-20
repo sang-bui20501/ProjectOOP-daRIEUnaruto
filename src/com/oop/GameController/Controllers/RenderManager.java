@@ -82,4 +82,4 @@ public class RenderManager extends JPanel{
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial", 1, 100));
 	}
-}
+

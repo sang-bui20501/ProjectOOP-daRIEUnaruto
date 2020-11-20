@@ -24,7 +24,7 @@ public class RenderManager extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	final int scale = 7;
-
+    
 	public void paintComponent(Graphics g) {
 		int width = getWidth();
 		int height = getHeight();
@@ -35,10 +35,11 @@ public class RenderManager extends JPanel{
 		BufferedImage i0 = null;
 		BufferedImage i1 = null;
 		BufferedImage i2 = null;
-		
+		String basePath = new File("").getAbsolutePath();
+		System.out.println(basePath);
 		// draw background
 		try {
-			i0 = ImageIO.read(new File("D:\\resource\\maps\\konoha.jpg"));
+			i0 = ImageIO.read(new File("src/resource/maps/konoha.jpg"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -54,7 +55,7 @@ public class RenderManager extends JPanel{
 		
 		// draw Player 1
 		try {
-			i1 = ImageIO.read(new File("D:\\resource\\characters\\" + players[0] + "1.png"));
+			i1 = ImageIO.read(new File("src/resource/characters/" + players[0] + "1.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -66,7 +67,7 @@ public class RenderManager extends JPanel{
 		
 		// draw Player 2
 		try {
-			i2 = ImageIO.read(new File("D:\\resource\\characters\\" + players[1] + "2.png"));
+			i2 = ImageIO.read(new File("src/resource/characters/" + players[1] + "2.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();

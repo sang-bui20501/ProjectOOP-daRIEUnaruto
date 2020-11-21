@@ -10,6 +10,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import com.oop.GameController.Player.PlayerRender;
+
 
 /**
  * 
@@ -27,60 +29,32 @@ public class RenderManager extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	final int scale = 7;
-    
-	public void paintComponent(Graphics g) {
-		int width = getWidth();
-		int height = getHeight();
-		
-		int wP = 0;
-		int hP = 0;
-		
-		BufferedImage i0 = null;
-		BufferedImage i1 = null;
-		BufferedImage i2 = null;
-		String basePath = new File("").getAbsolutePath();
-		System.out.println(basePath);
+	
+	public void paint(Graphics g) {	
+		//String basePath = new File("").getAbsolutePath();
+		//System.out.println(basePath);
+				
 		// draw background
+		BufferedImage i0 = null;
 		try {
 			i0 = ImageIO.read(new File("src/resource/maps/konoha.jpg"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		g.drawImage(i0, 0, 0, width, height, null);
+		g.drawImage(i0, 0, 0, getWidth(), getHeight(), null);
+		
+		PlayerRender player = new PlayerRender();
+		player.paint(g, getWidth(), getHeight());
+		add(player);		
+	}
+    
+	public void paintComponent(Graphics g) {
+		int width = getWidth();
+		int height = getHeight();
 		
 		
-		// get list of character from PlayerManager to here first
-		// assume that choose these 2 character.
-		String[] players = {"itachi", "sasuke"};
 				
-		
-		// draw Player 1
-		try {
-			i1 = ImageIO.read(new File("src/resource/characters/" + players[0] + "1.png"));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		wP = i1.getWidth() / 3;
-		hP = i1.getHeight() / 3;
-		g.drawImage(i1, width / scale, height - 2 * height / scale, wP, hP, null);
-		
-		
-		// draw Player 2
-		try {
-			i2 = ImageIO.read(new File("src/resource/characters/" + players[1] + "2.png"));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		wP = i2.getWidth() / 3;
-		hP = i2.getHeight() / 3;
-		g.drawImage(i2, width - 2 * width / scale, height - 2 * height / scale, wP, hP, null);
-				
-		
-		
-		
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial", 1, 100));
 	}

@@ -18,7 +18,7 @@ public class Main implements ActionListener{
 	public RenderManager gameframe;
 	public Timer t;
 	
-	public final int w = 500, h = 355;
+	public final int w = 750, h = 600;
 	
 	
     public void repaint() {

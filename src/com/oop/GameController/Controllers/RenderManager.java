@@ -1,4 +1,4 @@
-package com.oop.GameController.Controllers;
+ package com.oop.GameController.Controllers;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -29,11 +29,23 @@ public class RenderManager extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	final int scale = 7;
+	String name1;
+	String name2;
+	
+	public RenderManager() {};
+	
+	public RenderManager(String name1, String name2) {
+		// Pipe 2 name and save, render later
+		this.name1 = name1;
+		this.name2 = name2;
+	}
 	
 	public void paint(Graphics g) {	
 		//String basePath = new File("").getAbsolutePath();
 		//System.out.println(basePath);
-				
+		
+		
+		
 		// draw background
 		BufferedImage i0 = null;
 		try {
@@ -44,8 +56,10 @@ public class RenderManager extends JPanel{
 		}
 		g.drawImage(i0, 0, 0, getWidth(), getHeight(), null);
 		
+		
+		
 		PlayerRender player = new PlayerRender();
-		player.paint(g, getWidth(), getHeight());
+		player.paint(g, getWidth(), getHeight(), this.name1, this.name2);
 		add(player);		
 	}
     
@@ -54,9 +68,11 @@ public class RenderManager extends JPanel{
 		int height = getHeight();
 		
 		
-				
+		
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial", 1, 100));
 	}
+	
+
 }
 

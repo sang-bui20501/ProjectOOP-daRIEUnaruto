@@ -13,24 +13,18 @@ public class PlayerRender extends JPanel {
 	
 	final int scale = 7;
 		
-	public void paint(Graphics g, int width, int height) {
-		//System.out.println("Hello");
-
+	public void paint(Graphics g, int width, int height, String name1, String name2) {
 		int wP = 0;
 		int hP = 0;
 		
 		BufferedImage i1 = null;
-		BufferedImage i2 = null;
+		BufferedImage i2 = null;		
 		
-		// get list of character from PlayerManager to here first
-		// assume that choose these 2 character.
-		String[] players = {"itachi", "sasuke"};
+		// Depend on name1 and name2 to get pictures of 2 characters				
 		
-		
-										
 		// draw Player 1
 		try {
-			i1 = ImageIO.read(new File("src/resource/characters/" + players[0] + "1.png"));
+			i1 = ImageIO.read(new File("src/resource/characters/" + name1 + "1.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -38,12 +32,12 @@ public class PlayerRender extends JPanel {
 		wP = i1.getWidth() / 3;
 		hP = i1.getHeight() / 3;
 		g.drawImage(i1, width / scale, height - 2 * height / scale, wP, hP, null);
-					
+		
 		
 		
 		// draw Player 2
 		try {
-			i2 = ImageIO.read(new File("src/resource/characters/" + players[1] + "2.png"));
+			i2 = ImageIO.read(new File("src/resource/characters/" + name2 + "2.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.oop.GameController.Controllers;
 
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 import com.oop.GameController.State.PlayerState;
 
@@ -36,4 +37,9 @@ public class GameManager extends GameState {
 			System.out.println(childComponent.toString());
 		}
 	}
+	
+	public void schedule(TimerTask task,long delay,long period) {
+		
+	}
+
 }

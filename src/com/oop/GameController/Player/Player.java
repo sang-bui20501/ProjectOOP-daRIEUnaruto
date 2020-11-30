@@ -5,10 +5,13 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Player {
-	int hp;
-	int mana;
-	int sheld;
-	String element;
+	public int hp;
+	public int mana;
+	public int sheld;
+	public String element;
+	public String name;
+	public int posX;
+	public int posY;
 	
 	public Player(String name) {
 		try {
@@ -23,6 +26,7 @@ public class Player {
 			this.sheld= sc.nextInt();
 			sc.nextLine();
 			this.element = sc.nextLine();
+			this.name = name;
 			
 			sc.close();
 		}

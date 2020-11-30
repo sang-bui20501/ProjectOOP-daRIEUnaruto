@@ -6,10 +6,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import com.oop.GameController.Player.Player;
 import com.oop.GameController.Player.PlayerRender;
 
 
@@ -31,19 +33,18 @@ public class RenderManager extends JPanel{
 	final int scale = 7;
 	String name1;
 	String name2;
+	PlayerManager List;
 	
 	public RenderManager() {};
 	
-	public RenderManager(String name1, String name2) {
-		// Pipe 2 name and save, render later
-		this.name1 = name1;
-		this.name2 = name2;
+	public RenderManager(PlayerManager List) {
+		// Pipe the list of player;
+		this.List = List;
 	}
 	
 	public void paint(Graphics g) {	
 		//String basePath = new File("").getAbsolutePath();
 		//System.out.println(basePath);
-		
 		
 		
 		// draw background
@@ -57,15 +58,29 @@ public class RenderManager extends JPanel{
 		g.drawImage(i0, 0, 0, getWidth(), getHeight(), null);
 		
 		
-		
+		// Draw 2 player
+		ArrayList<Player> tmp = List.List_Player;
 		PlayerRender player = new PlayerRender();
-		player.paint(g, getWidth(), getHeight(), this.name1, this.name2);
+		
+		player.paint(g, getWidth(), getHeight(), 1, tmp.get(0));
 		add(player);		
+		
+		player.paint(g, getWidth(), getHeight(), 2, tmp.get(1));
+		add(player);
 	}
     
-	public void paintComponent(Graphics g) {
-		int width = getWidth();
-		int height = getHeight();
+	public void paintComponent(Graphics g) { 
+		//ArrayList<Player> temp = List.List_Player;
+		
+		// Draw 2 health bar
+		//Player tmp = temp.get(0);
+		//g.setColor(Color.cyan);
+        //g.fillRect(tmp.posX + 10, tmp.posY, tmp.hp, 50);
+        
+        //g.setColor(Color.black);
+        //g.drawRect(tmp.posX + 10, tmp.posY, 100, 10);	
+		
+		
 		
 		
 		

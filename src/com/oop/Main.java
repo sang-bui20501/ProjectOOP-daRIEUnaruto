@@ -84,7 +84,7 @@ public class Main implements ActionListener{
 		
 		j.addKeyListener(kbListener);	// Add Keyboard Interactive 
 		
-		gameframe = new RenderManager(name1, name2);
+		gameframe = new RenderManager(List);
 		j.add(gameframe);
 		
 		t = new Timer(5, this);

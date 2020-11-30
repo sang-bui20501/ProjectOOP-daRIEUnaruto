@@ -13,37 +13,30 @@ public class PlayerRender extends JPanel {
 	
 	final int scale = 7;
 		
-	public void paint(Graphics g, int width, int height, String name1, String name2) {
+	public void paint(Graphics g, int width, int height, int order, Player player) {
 		int wP = 0;
 		int hP = 0;
+		BufferedImage i = null;
 		
-		BufferedImage i1 = null;
-		BufferedImage i2 = null;		
+		// save position to fix and deploy health
+		if (order == 1)
+			player.posX = width / scale; 
+		else
+			player.posX = width - 2 * width / scale;
 		
-		// Depend on name1 and name2 to get pictures of 2 characters				
+		player.posY = height - 2 * height / scale;
 		
-		// draw Player 1
+		
+		// draw player depend on name and player object				
 		try {
-			i1 = ImageIO.read(new File("src/resource/characters/" + name1 + "1.png"));
+			i = ImageIO.read(new File("src/resource/characters/" + player.name + order + ".png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		wP = i1.getWidth() / 3;
-		hP = i1.getHeight() / 3;
-		g.drawImage(i1, width / scale, height - 2 * height / scale, wP, hP, null);
 		
-		
-		
-		// draw Player 2
-		try {
-			i2 = ImageIO.read(new File("src/resource/characters/" + name2 + "2.png"));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		wP = i2.getWidth() / 3;
-		hP = i2.getHeight() / 3;
-		g.drawImage(i2, width - 2 * width / scale, height - 2 * height / scale, wP, hP, null);
+		wP = i.getWidth() / 3;
+		hP = i.getHeight() / 3;
+		g.drawImage(i, player.posX, player.posY, wP, hP, null);
 	}
 }

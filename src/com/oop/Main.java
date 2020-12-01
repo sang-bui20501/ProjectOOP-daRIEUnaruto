@@ -3,10 +3,8 @@ package com.oop;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -14,6 +12,7 @@ import javax.swing.Timer;
 import com.oop.GameController.Controllers.PlayerManager;
 import com.oop.GameController.Controllers.RenderManager;
 import com.oop.GameController.Player.Player;
+import com.oop.GameController.Skill.SkillRender;
 
 public class Main implements ActionListener{
 	
@@ -22,6 +21,7 @@ public class Main implements ActionListener{
 	public JFrame j;
 	public Rectangle background;
 	public RenderManager gameframe;
+	public SkillRender miniSkill;
 	public Timer t;
 	
 	int mainPlayerID = 1;
@@ -29,7 +29,8 @@ public class Main implements ActionListener{
 	
 	public final int w = 750, h = 600;
 	
-	StringBuilder List_Key = new StringBuilder();;
+	StringBuilder List_Key = new StringBuilder();
+	StringBuilder miniKey = new StringBuilder();
 	
     public void repaint() {
     	this.repaint();
@@ -38,16 +39,23 @@ public class Main implements ActionListener{
     private KeyListener kbListener = new KeyListener() {
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() != 0) 
+			if (e.getKeyCode() != 0) {	
+				char key = (char) e.getKeyCode();
+				List_Key.append(key);
+				
+				miniKey.append(key);
+				miniSkill = new SkillRender();
+				
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					mainPlayer.generateSkill(List_Key.toString());
+					miniSkill = mainPlayer.generateSkill(List_Key.toString());
 					List_Key = new StringBuilder();
-				}	
-				else
-				{
-					char key = (char) e.getKeyCode();
-					List_Key.append(key);
 				}
+				else			
+					miniSkill = mainPlayer.generateSkill(miniKey.toString());
+				
+				j.add(miniSkill);
+				miniKey = new StringBuilder();			
+			}
 		}
 
 		@Override
@@ -72,7 +80,10 @@ public class Main implements ActionListener{
 		PlayerManager List = new PlayerManager(player1, player2);
 		
 		// mainPlayer: only generate skill of this player
-		if (mainPlayerID == 1) mainPlayer = player1;
+		if (mainPlayerID == 1) 
+			mainPlayer = player1;
+		else 
+			mainPlayer = player2;
 		
 		
 		j = new JFrame();

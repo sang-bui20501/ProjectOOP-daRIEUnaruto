@@ -14,8 +14,7 @@ public class PlayerRender extends JPanel {
 	final int scale = 7;
 		
 	public void paint(Graphics g, int width, int height, int order, Player player) {
-		int wP = 0;
-		int hP = 0;
+
 		BufferedImage i = null;
 		
 		// save position to fix and deploy health
@@ -35,8 +34,8 @@ public class PlayerRender extends JPanel {
 			e.printStackTrace();
 		}
 		
-		wP = i.getWidth() / 3;
-		hP = i.getHeight() / 3;
+		int wP = i.getWidth() / 3;
+		int hP = i.getHeight() / 3;
 		g.drawImage(i, player.posX, player.posY, wP, hP, null);
 	}
 }

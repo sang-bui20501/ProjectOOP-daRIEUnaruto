@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import com.oop.GameController.Skill.SkillRender;
+
 public class Player {
 	public int hp;
 	public int mana;
@@ -15,7 +17,7 @@ public class Player {
 	
 	public Player(String name) {
 		try {
-			// Open file and imple information of player into Object
+			// Open file and implement information of player into Object
 			
 			String path = "src/resource/characters/" + name + "_info.txt";
 			File obj = new File(path);
@@ -35,11 +37,14 @@ public class Player {
 		}
 	}
 	
-	public void generateSkill(String inputKey) {
-		// Check that if press more than 5 key
-		if (inputKey.length() < 5)
-			return;
+	public SkillRender generateSkill(String inputKey) {
+		// Check that if pressed more than 5 key
+		if (inputKey.length() > 1 && inputKey.length() < 5)
+			return null;
 		
 		System.out.println(inputKey);
+		
+		SkillRender re = new SkillRender(this, inputKey);
+		return re;
 	}
 }

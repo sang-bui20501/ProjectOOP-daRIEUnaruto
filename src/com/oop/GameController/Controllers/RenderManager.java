@@ -30,6 +30,8 @@ import com.oop.GameController.Player.PlayerRender;
 public class RenderManager extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
+	Graphics save_g;
+	
 	final int scale = 7;
 	String name1;
 	String name2;
@@ -42,10 +44,9 @@ public class RenderManager extends JPanel{
 		this.List = List;
 	}
 	
-	public void paint(Graphics g) {	
-		//String basePath = new File("").getAbsolutePath();
-		//System.out.println(basePath);
+	public void paint(Graphics g) {
 		
+		this.save_g = g;
 		
 		// draw background
 		BufferedImage i0 = null;
@@ -69,19 +70,7 @@ public class RenderManager extends JPanel{
 		add(player);
 	}
     
-	public void paintComponent(Graphics g) { 
-		//ArrayList<Player> temp = List.List_Player;
-		
-		// Draw 2 health bar
-		//Player tmp = temp.get(0);
-		//g.setColor(Color.cyan);
-        //g.fillRect(tmp.posX + 10, tmp.posY, tmp.hp, 50);
-        
-        //g.setColor(Color.black);
-        //g.drawRect(tmp.posX + 10, tmp.posY, 100, 10);	
-		
-		
-		
+	public void paintComponent(Graphics g) { 		
 		
 		
 		g.setColor(Color.white);

@@ -1,5 +1,6 @@
 package com.oop.GameController.Player;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -37,5 +38,19 @@ public class PlayerRender extends JPanel {
 		int wP = i.getWidth() / 3;
 		int hP = i.getHeight() / 3;
 		g.drawImage(i, player.posX, player.posY, wP, hP, null);
+		
+		
+		// Draw health bar
+		int cons = 40;
+		
+		g.setColor(Color.green);
+		g.fillRect(player.posX, height - cons, player.hp, 10);
+		g.setColor(Color.black);
+		g.drawRect(player.posX, height - cons, player.true_hp, 10);
+		
+		g.setColor(Color.blue);
+		g.fillRect(player.posX, height - cons + 10, player.mana, 10);
+		g.setColor(Color.black);
+		g.drawRect(player.posX, height - cons + 10, player.true_mana, 10);
 	}
 }

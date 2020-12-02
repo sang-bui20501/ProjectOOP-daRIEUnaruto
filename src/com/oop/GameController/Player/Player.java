@@ -7,7 +7,9 @@ import java.util.Scanner;
 import com.oop.GameController.Skill.SkillRender;
 
 public class Player {
+	public int true_hp;
 	public int hp;
+	public int true_mana;
 	public int mana;
 	public int sheld;
 	public String element;
@@ -30,6 +32,9 @@ public class Player {
 			this.element = sc.nextLine();
 			this.name = name;
 			
+			this.true_hp = hp;
+			this.true_mana = mana;
+			
 			sc.close();
 		}
 		catch (FileNotFoundException e) {
@@ -39,7 +44,7 @@ public class Player {
 	
 	public SkillRender generateSkill(String inputKey) {
 		// Check that if pressed more than 5 key
-		if (inputKey.length() > 1 && inputKey.length() < 5)
+		if (inputKey.length() > 1 && inputKey.length() < 6)
 			return null;
 		
 		System.out.println(inputKey);

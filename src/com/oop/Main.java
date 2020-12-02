@@ -21,7 +21,7 @@ public class Main implements ActionListener{
 	public JFrame j;
 	public Rectangle background;
 	public RenderManager gameframe;
-	public SkillRender miniSkill;
+	public SkillRender renSkill;
 	public Timer t;
 	
 	int mainPlayerID = 1;
@@ -41,19 +41,21 @@ public class Main implements ActionListener{
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() != 0) {	
 				char key = (char) e.getKeyCode();
-				List_Key.append(key);
 				
 				miniKey.append(key);
-				miniSkill = new SkillRender();
+				List_Key.append(key);
+				
+				renSkill = new SkillRender();
 				
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					miniSkill = mainPlayer.generateSkill(List_Key.toString());
+					renSkill = mainPlayer.generateSkill(List_Key.toString());
 					List_Key = new StringBuilder();
 				}
 				else			
-					miniSkill = mainPlayer.generateSkill(miniKey.toString());
+					renSkill = mainPlayer.generateSkill(miniKey.toString());
 				
-				j.add(miniSkill);
+				if (renSkill != null) j.add(renSkill);
+				
 				miniKey = new StringBuilder();			
 			}
 		}

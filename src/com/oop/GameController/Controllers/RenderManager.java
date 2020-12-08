@@ -30,7 +30,7 @@ import com.oop.GameController.Player.PlayerRender;
 public class RenderManager extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
-	Graphics save_g;
+	public Graphics save_g;
 	
 	final int scale = 7;
 	String name1;

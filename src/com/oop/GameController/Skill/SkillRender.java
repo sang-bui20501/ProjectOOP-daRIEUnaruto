@@ -28,10 +28,12 @@ public class SkillRender extends JPanel {
 		String s = "src/resource/characters/" + this.key + ".png";
 		
 		try {
-			i = ImageIO.read(new File(s));
+			if (this.key != "Space") 
+				i = ImageIO.read(new File(s));
 		}
 		catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("-----------------> Wrong spell <-----------------");
+			return;
 		}
 		
 		int wP = i.getWidth() / 3;

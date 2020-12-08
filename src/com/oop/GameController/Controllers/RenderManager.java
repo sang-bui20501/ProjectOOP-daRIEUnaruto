@@ -1,4 +1,4 @@
-package com.oop.GameController.Controllers;
+ package com.oop.GameController.Controllers;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,10 +6,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import com.oop.GameController.Player.Player;
 import com.oop.GameController.Player.PlayerRender;
 
 
@@ -28,12 +30,24 @@ import com.oop.GameController.Player.PlayerRender;
 public class RenderManager extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
-	final int scale = 7;
+	Graphics save_g;
 	
-	public void paint(Graphics g) {	
-		//String basePath = new File("").getAbsolutePath();
-		//System.out.println(basePath);
-				
+	final int scale = 7;
+	String name1;
+	String name2;
+	PlayerManager List;
+	
+	public RenderManager() {};
+	
+	public RenderManager(PlayerManager List) {
+		// Pipe the list of player;
+		this.List = List;
+	}
+	
+	public void paint(Graphics g) {
+		
+		this.save_g = g;
+		
 		// draw background
 		BufferedImage i0 = null;
 		try {
@@ -44,19 +58,25 @@ public class RenderManager extends JPanel{
 		}
 		g.drawImage(i0, 0, 0, getWidth(), getHeight(), null);
 		
+		
+		// Draw 2 player
+		ArrayList<Player> tmp = List.List_Player;
 		PlayerRender player = new PlayerRender();
-		player.paint(g, getWidth(), getHeight());
+		
+		player.paint(g, getWidth(), getHeight(), 1, tmp.get(0));
 		add(player);		
+		
+		player.paint(g, getWidth(), getHeight(), 2, tmp.get(1));
+		add(player);
 	}
     
-	public void paintComponent(Graphics g) {
-		int width = getWidth();
-		int height = getHeight();
+	public void paintComponent(Graphics g) { 		
 		
 		
-				
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial", 1, 100));
 	}
+	
+
 }
 

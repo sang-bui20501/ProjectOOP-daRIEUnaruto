@@ -32,13 +32,11 @@ public class Main implements ActionListener{
 	StringBuilder List_Key = new StringBuilder();
 	StringBuilder miniKey = new StringBuilder();
 	
-    public void repaint() {
-    	this.repaint();
-    }
-    
+
     private KeyListener kbListener = new KeyListener() {
 		@Override
 		public void keyPressed(KeyEvent e) {
+			// Press key
 			if (e.getKeyCode() != 0) {	
 				char key = (char) e.getKeyCode();
 				
@@ -48,13 +46,19 @@ public class Main implements ActionListener{
 				renSkill = new SkillRender();
 				
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					renSkill = mainPlayer.generateSkill(List_Key.toString());
+					// If space then generate skill
+					renSkill = mainPlayer.generateSkill(gameframe.save_g, List_Key.toString());
 					List_Key = new StringBuilder();
 				}
 				else			
-					renSkill = mainPlayer.generateSkill(miniKey.toString());
+					// else generate "an chu"
+					renSkill = mainPlayer.generateSkill(gameframe.save_g, miniKey.toString());
 				
+				// adding to jframe
 				if (renSkill != null) j.add(renSkill);
+				
+				// repainting the game
+				j.repaint();
 				
 				miniKey = new StringBuilder();			
 			}
@@ -112,6 +116,6 @@ public class Main implements ActionListener{
 	public static void main(String[] args){
 		// main = new Main(args[0], args[1])
 		// Pipe names of 2 characters after connect and choose
-        main = new Main("itachi", "sasuke"); 
+        main = new Main("itachi", "sasuke");
     }
 }

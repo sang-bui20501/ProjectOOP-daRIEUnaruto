@@ -10,12 +10,22 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class PlayerRender extends JPanel {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	final int scale = 7;
+	int width, height, order;
+	Player player;
+	
+	public PlayerRender() {}
+	
+	public PlayerRender(int width, int height, int order, Player player) {
+		this.width = width;
+		this.height = height;
+		this.order = order;
+		this.player = player;		
+	}
 		
-	public void paint(Graphics g, int width, int height, int order, Player player) {
-
+	public void paint(Graphics g) {
 		BufferedImage i = null;
 		
 		// save position to fix and deploy health
@@ -53,4 +63,5 @@ public class PlayerRender extends JPanel {
 		g.setColor(Color.black);
 		g.drawRect(player.posX, height - cons + 10, player.true_mana, 10);
 	}
+
 }

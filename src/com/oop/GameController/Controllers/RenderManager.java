@@ -6,13 +6,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import com.oop.GameController.Player.Player;
 import com.oop.GameController.Player.PlayerRender;
+import com.oop.GameController.Skill.SkillRender;
 
 
 /**
@@ -29,25 +28,23 @@ import com.oop.GameController.Player.PlayerRender;
 
 public class RenderManager extends JPanel{
 	private static final long serialVersionUID = 1L;
-	
-	public Graphics save_g;
-	
+		
 	final int scale = 7;
 	String name1;
 	String name2;
-	PlayerManager List;
+	PlayerManager List_Player;
+	SkillManager List_Skill;
 	
 	public RenderManager() {};
 	
-	public RenderManager(PlayerManager List) {
-		// Pipe the list of player;
-		this.List = List;
+	public RenderManager(PlayerManager List_Player, SkillManager List_Skill) {
+		// Pipe the list of player and list of skill
+		
+		this.List_Player = List_Player;
+		this.List_Skill= List_Skill;
 	}
 	
-	public void paint(Graphics g) {
-		
-		this.save_g = g;
-		
+	public void paintComponent(Graphics g) {
 		// draw background
 		BufferedImage i0 = null;
 		try {
@@ -59,18 +56,37 @@ public class RenderManager extends JPanel{
 		g.drawImage(i0, 0, 0, getWidth(), getHeight(), null);
 		
 		
-		// Draw 2 player
-		ArrayList<Player> tmp = List.List_Player;
-		PlayerRender player = new PlayerRender();
+		// draw 2 player
+		PlayerRender playerframe = new PlayerRender();
+				
+		playerframe = new PlayerRender(getWidth(), getHeight(), 1, List_Player.List_Player.get(0));
+		playerframe.paint(g);
+		this.add(playerframe);
+				
+		playerframe = new PlayerRender(getWidth(), getHeight(), 2, List_Player.List_Player.get(1));
+		playerframe.paint(g);
+		this.add(playerframe);
 		
-		player.paint(g, getWidth(), getHeight(), 1, tmp.get(0));
-		add(player);		
 		
-		player.paint(g, getWidth(), getHeight(), 2, tmp.get(1));
-		add(player);
-	}
-    
-	public void paintComponent(Graphics g) { 		
+		// draw "an chu"
+		SkillRender mem = List_Skill.Mini_Skill;
+		mem.paint(g);
+		add(mem);
+		
+		
+		// draw existed skill
+		// update status of skill
+		List_Skill.update();
+		
+		// paint the skill
+		if (List_Skill.List_Skill.size() != 0) {
+			for (int i = 0; i < List_Skill.List_Skill.size(); ++i) {
+				mem = List_Skill.List_Skill.get(i);
+				mem.paint(g);
+				add(mem);
+			}
+		}
+		
 		
 		
 		g.setColor(Color.white);

@@ -29,7 +29,6 @@ import com.oop.GameController.Skill.SkillRender;
 public class RenderManager extends JPanel{
 	private static final long serialVersionUID = 1L;
 		
-	final int scale = 7;
 	String name1;
 	String name2;
 	PlayerManager List_Player;
@@ -39,7 +38,6 @@ public class RenderManager extends JPanel{
 	
 	public RenderManager(PlayerManager List_Player, SkillManager List_Skill) {
 		// Pipe the list of player and list of skill
-		
 		this.List_Player = List_Player;
 		this.List_Skill= List_Skill;
 	}
@@ -74,19 +72,24 @@ public class RenderManager extends JPanel{
 		add(mem);
 		
 		
-		// draw existed skill
-		// update status of skill
-		List_Skill.update();
-		
-		// paint the skill
+		// draw existed skill		
 		if (List_Skill.List_Skill.size() != 0) {
-			for (int i = 0; i < List_Skill.List_Skill.size(); ++i) {
+			int i = 0;
+			
+			while (i < List_Skill.List_Skill.size()) {
 				mem = List_Skill.List_Skill.get(i);
 				mem.paint(g);
-				add(mem);
+				
+				if (mem.status == false) {
+					List_Skill.List_Skill.remove(i);
+					--i;
+				}
+				else
+					add(mem);
+				
+				++i;
 			}
 		}
-		
 		
 		
 		g.setColor(Color.white);

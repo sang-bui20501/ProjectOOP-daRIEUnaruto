@@ -29,10 +29,10 @@ public class Main implements ActionListener{
 	public Timer t;
 	
 	
-	int mainPlayerID = 1;
+	int mainPlayerID = 2;
 	Player mainPlayer;
 	
-	public final int w = 750, h = 600;
+	public final int w = 1250, h = 650;
 	
 	StringBuilder List_Key = new StringBuilder();
 	StringBuilder miniKey = new StringBuilder();

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class PlayerRender extends JPanel {
 	private static final long serialVersionUID = 2L;
 	
-	final int scale = 7;
+	final int scale = 9;
 	int width, height, order;
 	Player player;
 	
@@ -32,7 +32,7 @@ public class PlayerRender extends JPanel {
 		if (order == 1)
 			player.posX = width / scale; 
 		else
-			player.posX = width - 2 * width / scale;
+			player.posX = width - width / scale;
 		
 		player.posY = height - 2 * height / scale;
 		
@@ -51,17 +51,17 @@ public class PlayerRender extends JPanel {
 		
 		
 		// Draw health bar
-		int cons = 40;
+		int cons = 0;
 		
 		g.setColor(Color.green);
-		g.fillRect(player.posX, height - cons, player.hp, 10);
+		g.fillRect(player.posX, player.posY + hP + cons, player.hp, 10);
 		g.setColor(Color.black);
-		g.drawRect(player.posX, height - cons, player.true_hp, 10);
+		g.drawRect(player.posX, player.posY + hP + cons, player.true_hp, 10);
 		
 		g.setColor(Color.blue);
-		g.fillRect(player.posX, height - cons + 10, player.mana, 10);
+		g.fillRect(player.posX, player.posY + hP + cons + 10, player.mana, 10);
 		g.setColor(Color.black);
-		g.drawRect(player.posX, height - cons + 10, player.true_mana, 10);
+		g.drawRect(player.posX, player.posY + hP + cons + 10, player.true_mana, 10);
 	}
 
 }

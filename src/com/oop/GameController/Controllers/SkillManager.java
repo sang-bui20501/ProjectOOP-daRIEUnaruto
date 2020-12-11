@@ -10,15 +10,4 @@ public class SkillManager {
 	public ArrayList<SkillRender> List_Skill = new ArrayList<SkillRender>();
 	
 	public SkillManager() {};
-	
-	public void update() {
-		int i = 0;
-		while (i < List_Skill.size()) {
-			if (List_Skill.get(i).status == false) {
-				List_Skill.remove(i);
-				--i;
-			}
-			++i;
-		}
-	}
 }

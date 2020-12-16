@@ -26,10 +26,11 @@ public class Main implements ActionListener{
 	public PlayerManager List_Player;
 	public SkillManager List_Skill;
 	
-	public Timer t;
+	public Timer t_Skill;
+	public Timer t_game;
 	
 	
-	int mainPlayerID = 2;
+	int mainPlayerID = 1;
 	Player mainPlayer;
 	
 	public final int w = 1250, h = 650;
@@ -54,7 +55,7 @@ public class Main implements ActionListener{
 					renSkill = mainPlayer.generateSkill(List_Key.toString());
 					
 					if (renSkill != null) 
-						List_Skill.List_Skill.add(renSkill);
+						SkillManager.List_Skill.add(renSkill);
 					
 					// Reset list of key pressed
 					List_Key = new StringBuilder();
@@ -78,7 +79,7 @@ public class Main implements ActionListener{
 				}
 								
 				// repainting the game
-				j.repaint();
+				//j.repaint();
 				
 				// Reset list of key pressed
 				miniKey = new StringBuilder();
@@ -94,7 +95,7 @@ public class Main implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
+		j.repaint();
 	}
 	
 	
@@ -112,8 +113,8 @@ public class Main implements ActionListener{
 			mainPlayer = player2;
 		
 		// Get a list store the existing skill on one frame
-		List_Skill = new SkillManager();
-		
+		List_Skill = SkillManager.getInstance();
+				
 		// Form the Frame
 		j = new JFrame();
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,8 +132,11 @@ public class Main implements ActionListener{
 		gameframe = new RenderManager(List_Player, List_Skill);
 		j.add(gameframe);
 		
-		t = new Timer(5, this);
-		t.start();
+		
+		t_Skill = new Timer(5 , List_Skill);
+		t_game = new Timer(5, this);
+		t_Skill.start();
+		t_game.start();
 	}
 	
 	public Main(String name1, String name2) {

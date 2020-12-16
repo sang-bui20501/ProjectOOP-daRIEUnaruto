@@ -10,6 +10,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import com.oop.GameController.Controllers.SkillManager;
 import com.oop.GameController.Player.Player;
 
 public class SkillRender extends JPanel {
@@ -32,6 +33,7 @@ public class SkillRender extends JPanel {
 	
 	public boolean status = false;		// save the status of skill
 	public int firsttime = 1;
+	public int firstRender = 1;
 	public int id;
 	
 	// path of png
@@ -40,6 +42,22 @@ public class SkillRender extends JPanel {
 	BufferedImage i = null;
 	
 	public SkillRender() {};
+	
+	public SkillRender(SkillRender preSkill) {
+		this.player = preSkill.player;
+		this.key = preSkill.key;
+		
+		this.name = preSkill.name;
+		this.sl = 1;
+		this.scale = preSkill.scale;
+		this.xS = preSkill.xS;
+		this.yS = preSkill.yS + 5;
+		this.speed = preSkill.speed;
+		this.damage = preSkill.damage;
+		
+		this.status = true;
+		this.firstRender = 0;
+	};
 	
 	public SkillRender(Player player, String key) {
 		this.player = player;
@@ -54,6 +72,32 @@ public class SkillRender extends JPanel {
 				
 			// if skill is created for the first time
 			if (this.firsttime == 1) {
+				
+				if (this.firstRender == 1) {
+					// Create skill for the first time
+					String info = "src/resource/skills/" + player.name + "/" + key + "_info.txt";
+					Scanner sc = null;
+	
+					try {
+						sc = new Scanner(new File(info));
+					} 
+					catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+					
+					this.name = sc.nextLine();
+					this.sl = sc.nextInt();
+					this.scale = sc.nextInt();
+					this.xS = sc.nextInt();
+					this.yS = sc.nextInt();
+					this.speed = sc.nextInt();
+					this.damage = sc.nextInt();
+					
+					this.firstRender = 0;
+				
+					sc.close();
+				}
+				
 				path = "src/resource/skills/" + player.name + "/" + key + player.id + ".png";
 				try {
 					// get the skill
@@ -66,28 +110,6 @@ public class SkillRender extends JPanel {
 					System.out.println("-----------------> Wrong skill <-----------------");
 					return;
 				}
-				
-				
-				// Create skill for the first time
-				String info = "src/resource/skills/" + player.name + "/" + key + "_info.txt";
-				Scanner sc = null;
-
-				try {
-					sc = new Scanner(new File(info));
-				} 
-				catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-				
-				this.name = sc.nextLine();
-				this.sl = sc.nextInt();
-				this.scale = sc.nextInt();
-				this.xS = sc.nextInt();
-				this.yS = sc.nextInt();
-				this.speed = sc.nextInt();
-				this.damage = sc.nextInt();
-				
-				sc.close();
 				
 				this.id = player.id;
 				
@@ -102,6 +124,14 @@ public class SkillRender extends JPanel {
 				this.status = true;
 					
 				System.out.println(name);
+				
+				if (this.sl != 1) 
+					while (this.sl > 1)
+					{
+						SkillRender nextSkill = new SkillRender(this);
+						SkillManager.addSkill(nextSkill);
+						this.sl--;
+					}
 			}
 				
 			else
@@ -113,7 +143,7 @@ public class SkillRender extends JPanel {
 		}
 			
 		else
-				
+			
 		{	
 			// if "an chu", draw beside of character
 			path = "src/resource/skills/anchu/" + this.key + ".png";

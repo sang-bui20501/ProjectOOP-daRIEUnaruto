@@ -33,6 +33,7 @@ public class RenderManager extends JPanel{
 	String name2;
 	PlayerManager List_Player;
 	SkillManager List_Skill;
+	SkillRender mem;
 	
 	public RenderManager() {};
 	
@@ -67,28 +68,15 @@ public class RenderManager extends JPanel{
 		
 		
 		// draw "an chu"
-		SkillRender mem = List_Skill.Mini_Skill;
+		mem = List_Skill.Mini_Skill;
 		mem.paint(g);
 		add(mem);
 		
-		
 		// draw existed skill		
-		if (List_Skill.List_Skill.size() != 0) {
-			int i = 0;
-			
-			while (i < List_Skill.List_Skill.size()) {
-				mem = List_Skill.List_Skill.get(i);
-				mem.paint(g);
-				
-				if (mem.status == false) {
-					List_Skill.List_Skill.remove(i);
-					--i;
-				}
-				else
-					add(mem);
-				
-				++i;
-			}
+		for (int i = 0; i < SkillManager.List_Skill.size(); ++i) {
+			mem = SkillManager.List_Skill.get(i);
+			mem.paint(g);
+			add(mem);
 		}
 		
 		

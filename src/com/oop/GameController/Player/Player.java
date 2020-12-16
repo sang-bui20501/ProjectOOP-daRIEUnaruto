@@ -50,7 +50,7 @@ public class Player {
 		System.out.println(inputKey);
 		
 		// Paint the skill
-		SkillRender re = new SkillRender(this, inputKey);		
+		SkillRender re = new SkillRender(this, inputKey);
 		return re;
 	}
 }

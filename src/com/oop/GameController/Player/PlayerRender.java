@@ -9,18 +9,23 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+
+/*
+ * Render image of player 
+ */
+
 public class PlayerRender extends JPanel {
 	private static final long serialVersionUID = 2L;
 	
 	final int scale = 9;
-	int width, height, order;
+	int bgwidth, bgheight, order;
 	Player player;
 	
 	public PlayerRender() {}
 	
 	public PlayerRender(int width, int height, int order, Player player) {
-		this.width = width;
-		this.height = height;
+		this.bgwidth = width;
+		this.bgheight = height;
 		this.order = order;
 		this.player = player;		
 	}
@@ -30,11 +35,11 @@ public class PlayerRender extends JPanel {
 		
 		// save position to fix and deploy health
 		if (order == 1)
-			player.posX = width / scale; 
+			player.posX = bgwidth / scale; 
 		else
-			player.posX = width - width / scale;
+			player.posX = bgwidth - bgwidth / scale;
 		
-		player.posY = height - 2 * height / scale;
+		player.posY = bgheight - 2 * bgheight / scale;
 		
 		
 		// draw player depend on name and player object				
@@ -45,23 +50,28 @@ public class PlayerRender extends JPanel {
 			e.printStackTrace();
 		}
 		
-		int wP = i.getWidth() / 3;
-		int hP = i.getHeight() / 3;
-		g.drawImage(i, player.posX, player.posY, wP, hP, null);
+		player.width = i.getWidth() / 3;
+		player.height = i.getHeight() / 3;
+		g.drawImage(i, player.posX, player.posY, player.width, player.height, null);
 		
 		
-		// Draw health bar
+		// Draw health, mana, sheild bar
 		int cons = 0;
 		
 		g.setColor(Color.green);
-		g.fillRect(player.posX, player.posY + hP + cons, player.hp, 10);
+		g.fillRect(player.posX, player.posY + player.height + cons, player.hp, 10);
 		g.setColor(Color.black);
-		g.drawRect(player.posX, player.posY + hP + cons, player.true_hp, 10);
+		g.drawRect(player.posX, player.posY + player.height + cons, player.true_hp, 10);
 		
 		g.setColor(Color.blue);
-		g.fillRect(player.posX, player.posY + hP + cons + 10, player.mana, 10);
+		g.fillRect(player.posX, player.posY + player.height + cons + 10, player.mana, 10);
 		g.setColor(Color.black);
-		g.drawRect(player.posX, player.posY + hP + cons + 10, player.true_mana, 10);
+		g.drawRect(player.posX, player.posY + player.height + cons + 10, player.true_mana, 10);
+		
+		g.setColor(Color.gray);
+		g.fillRect(player.posX, player.posY + player.height + cons + 20, player.sheild, 10);
+		g.setColor(Color.black);
+		g.drawRect(player.posX, player.posY + player.height + cons + 20, player.true_sheild, 10);
 	}
 
 }

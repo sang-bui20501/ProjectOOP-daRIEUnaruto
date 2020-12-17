@@ -34,7 +34,7 @@ public class RenderManager extends JPanel{
 	PlayerManager List_Player;
 	SkillManager List_Skill;
 	SkillRender mem;
-	
+		
 	public RenderManager() {};
 	
 	public RenderManager(PlayerManager List_Player, SkillManager List_Skill) {
@@ -56,13 +56,14 @@ public class RenderManager extends JPanel{
 		
 		
 		// draw 2 player
+		
 		PlayerRender playerframe = new PlayerRender();
-				
-		playerframe = new PlayerRender(getWidth(), getHeight(), 1, List_Player.List_Player.get(0));
+			
+		playerframe = new PlayerRender(getWidth(), getHeight(), 1, PlayerManager.List_Player.get(0));
 		playerframe.paint(g);
 		this.add(playerframe);
-				
-		playerframe = new PlayerRender(getWidth(), getHeight(), 2, List_Player.List_Player.get(1));
+			
+		playerframe = new PlayerRender(getWidth(), getHeight(), 2, PlayerManager.List_Player.get(1));
 		playerframe.paint(g);
 		this.add(playerframe);
 		

@@ -1,7 +1,9 @@
 Katon: Goukakyuu No Jutsu
-2
+1
 2
 50
 -20
-5
+50
 15
+20
+1

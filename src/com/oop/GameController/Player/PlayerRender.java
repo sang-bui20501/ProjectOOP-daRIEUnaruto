@@ -55,7 +55,7 @@ public class PlayerRender extends JPanel {
 		g.drawImage(i, player.posX, player.posY, player.width, player.height, null);
 		
 		
-		// Draw health, mana, sheild bar
+		// Draw health, mana, shield bar
 		int cons = 0;
 		
 		g.setColor(Color.green);
@@ -69,9 +69,9 @@ public class PlayerRender extends JPanel {
 		g.drawRect(player.posX, player.posY + player.height + cons + 10, player.true_mana, 10);
 		
 		g.setColor(Color.gray);
-		g.fillRect(player.posX, player.posY + player.height + cons + 20, player.sheild, 10);
+		g.fillRect(player.posX, player.posY + player.height + cons + 20, player.shield, 10);
 		g.setColor(Color.black);
-		g.drawRect(player.posX, player.posY + player.height + cons + 20, player.true_sheild, 10);
+		g.drawRect(player.posX, player.posY + player.height + cons + 20, player.true_shield, 10);
 	}
 
 }

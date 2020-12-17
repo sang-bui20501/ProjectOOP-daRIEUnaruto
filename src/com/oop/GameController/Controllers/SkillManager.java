@@ -51,14 +51,14 @@ public class SkillManager implements ActionListener {
 				
 				// Decrease HP base one shield and damage
 				int tmp = List_Skill.get(i).damage;
-				tmp -= PlayerManager.List_Player.get(mem.id % 2).sheild;
+				tmp -= PlayerManager.List_Player.get(mem.id % 2).shield;
 				
 				if (tmp < 0) {
-					PlayerManager.List_Player.get(mem.id % 2).sheild -= List_Skill.get(i).damage;
+					PlayerManager.List_Player.get(mem.id % 2).shield -= List_Skill.get(i).damage;
 					tmp = 0;
 				}
 				else
-					PlayerManager.List_Player.get(mem.id % 2).sheild = 0;
+					PlayerManager.List_Player.get(mem.id % 2).shield = 0;
 				
 				PlayerManager.List_Player.get(mem.id % 2).hp -= tmp;
 				

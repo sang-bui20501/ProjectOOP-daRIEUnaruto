@@ -19,8 +19,8 @@ public class Player {
 	public int true_mana;
 	public int mana;
 	public int manaRe;
-	public int true_sheild;
-	public int sheild;
+	public int true_shield;
+	public int shield;
 	public String element;
 	public String name;
 	public int posX;
@@ -51,8 +51,8 @@ public class Player {
 			
 			this.manaRe = sc.nextInt();
 			
-			this.true_sheild = sc.nextInt();
-			this.sheild = this.true_sheild;
+			this.true_shield = sc.nextInt();
+			this.shield = this.true_shield;
 			
 			sc.nextLine();
 			this.element = sc.nextLine();

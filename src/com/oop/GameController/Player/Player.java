@@ -1,10 +1,16 @@
 package com.oop.GameController.Player;
 
+import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import com.oop.GameController.Controllers.SkillManager;
 import com.oop.GameController.Skill.SkillRender;
+
+/*
+ * Save the information of player
+ */
 
 public class Player {
 	public int id;
@@ -12,11 +18,19 @@ public class Player {
 	public int hp;
 	public int true_mana;
 	public int mana;
-	public int sheld;
+	public int manaRe;
+	public int true_shield;
+	public int shield;
 	public String element;
 	public String name;
 	public int posX;
 	public int posY;
+	public int width;
+	public int height;
+	
+	public boolean dead = false;
+	
+	//public SkillManager List_Skill;
 	
 	public Player(String name, int id) {
 		try {
@@ -26,15 +40,22 @@ public class Player {
 			File obj = new File(path);
 			Scanner sc = new Scanner(obj);
 			
+			this.name = name;
 			this.id = id;
+			
 			this.true_hp = sc.nextInt();
 			this.hp = true_hp;
+			
 			this.true_mana = sc.nextInt();
 			this.mana = true_mana;
-			this.sheld= sc.nextInt();
+			
+			this.manaRe = sc.nextInt();
+			
+			this.true_shield = sc.nextInt();
+			this.shield = this.true_shield;
+			
 			sc.nextLine();
 			this.element = sc.nextLine();
-			this.name = name;
 			
 			sc.close();
 		}
@@ -50,7 +71,12 @@ public class Player {
 		System.out.println(inputKey);
 		
 		// Paint the skill
-		SkillRender re = new SkillRender(this, inputKey);		
+		SkillRender re = new SkillRender(this, inputKey);
 		return re;
+	}
+	
+	// bound for intersects
+	public Rectangle getBound() {
+		return new Rectangle(this.posX, this.posY, this.width, this.height);
 	}
 }

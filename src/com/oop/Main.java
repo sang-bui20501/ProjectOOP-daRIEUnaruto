@@ -19,20 +19,22 @@ public class Main implements ActionListener{
 	
 	public static Main main;
 	
-	public JFrame j;
+	public static JFrame j;
 	public Rectangle background;
 	public RenderManager gameframe;
 	public SkillRender renSkill;
 	public PlayerManager List_Player;
 	public SkillManager List_Skill;
 	
-	public Timer t;
+	public Timer t_Skill;
+	public Timer t_Player;
+	public Timer t_game;
 	
 	
 	int mainPlayerID = 2;
 	Player mainPlayer;
 	
-	public final int w = 1250, h = 650;
+	public final int w = 1000, h = 650;
 	
 	StringBuilder List_Key = new StringBuilder();
 	StringBuilder miniKey = new StringBuilder();
@@ -54,7 +56,7 @@ public class Main implements ActionListener{
 					renSkill = mainPlayer.generateSkill(List_Key.toString());
 					
 					if (renSkill != null) 
-						List_Skill.List_Skill.add(renSkill);
+						SkillManager.List_Skill.add(renSkill);
 					
 					// Reset list of key pressed
 					List_Key = new StringBuilder();
@@ -76,9 +78,6 @@ public class Main implements ActionListener{
 					if (renSkill != null) 
 						List_Skill.Mini_Skill = renSkill;
 				}
-								
-				// repainting the game
-				j.repaint();
 				
 				// Reset list of key pressed
 				miniKey = new StringBuilder();
@@ -94,7 +93,7 @@ public class Main implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
+		j.repaint();
 	}
 	
 	
@@ -112,8 +111,8 @@ public class Main implements ActionListener{
 			mainPlayer = player2;
 		
 		// Get a list store the existing skill on one frame
-		List_Skill = new SkillManager();
-		
+		List_Skill = SkillManager.getInstance();
+				
 		// Form the Frame
 		j = new JFrame();
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,11 +130,19 @@ public class Main implements ActionListener{
 		gameframe = new RenderManager(List_Player, List_Skill);
 		j.add(gameframe);
 		
-		t = new Timer(5, this);
-		t.start();
+		
+		t_Skill = new Timer(5, List_Skill);
+		t_Player = new Timer(400, List_Player);
+		t_game = new Timer(5, this);
+		t_Skill.start();
+		t_Player.start();
+		t_game.start();
 	}
 	
 	public Main(String name1, String name2) {
+		//Must be identify the present player is id 1 or 2
+		//this.mainPlayerID = 1;
+		
 		// Pipe to init() in oder to initial
 		this.init(name1, name2);
 	}
@@ -143,6 +150,7 @@ public class Main implements ActionListener{
 	public static void main(String[] args){
 		// main = new Main(args[0], args[1])
 		// Pipe names of 2 characters after connect and choose
+		//main = new Main("sasuke", "itachi");
         main = new Main("itachi", "sasuke");
     }
 }

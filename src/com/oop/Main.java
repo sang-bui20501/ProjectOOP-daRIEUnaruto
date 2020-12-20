@@ -12,6 +12,7 @@ import javax.swing.Timer;
 import com.oop.GameController.Controllers.PlayerManager;
 import com.oop.GameController.Controllers.RenderManager;
 import com.oop.GameController.Controllers.SkillManager;
+import com.oop.GameController.Networking.SocketClient;
 import com.oop.GameController.Player.Player;
 import com.oop.GameController.Skill.SkillRender;
 
@@ -30,7 +31,7 @@ public class Main implements ActionListener{
 	public Timer t_Player;
 	public Timer t_game;
 	
-	
+	private SocketClient socketClient;
 	int mainPlayerID = 2;
 	Player mainPlayer;
 	
@@ -145,12 +146,15 @@ public class Main implements ActionListener{
 		
 		// Pipe to init() in oder to initial
 		this.init(name1, name2);
+		
+		this.socketClient = SocketClient.getClient();
 	}
 	
 	public static void main(String[] args){
 		// main = new Main(args[0], args[1])
 		// Pipe names of 2 characters after connect and choose
 		//main = new Main("sasuke", "itachi");
-        main = new Main("itachi", "sasuke");
+		main = new Main("itachi", "sasuke");
+		
     }
 }

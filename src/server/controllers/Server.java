@@ -15,14 +15,10 @@ public class Server extends Thread{
                 socket.getLocalPort() + "...");
                 Socket server = socket.accept();
                 
-                System.out.println("Just connected to " + server.getRemoteSocketAddress());
-                DataInputStream in = new DataInputStream(server.getInputStream());
-                
-                System.out.println(in.readUTF());
-                DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress()
-                + "\nGoodbye!");
-                server.close();
+                PrintStream output = new PrintStream(server.getOutputStream());
+                while(server.isConnected()){
+                    output.println("asdfasdfasdf");
+                }
             }catch (SocketTimeoutException s) {
                 System.out.println("Socket timed out!");
                 break;
@@ -32,4 +28,4 @@ public class Server extends Thread{
             }
         }
     }
-}
+}  

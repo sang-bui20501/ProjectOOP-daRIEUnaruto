@@ -13,9 +13,18 @@ public class ServerManager {
     public void addUser(User u){
         userList.add(u);
     }
-    
-    public List<User> getUserList(){
-        return this.userList;
+    public boolean isExist(User u){
+        return userList.contains(u);
+    }
+    public void removeUser(User u){
+        this.userList.remove(u);
+    }
+    public String getUserList(){
+        String result = "";
+        for(User u : this.userList){
+            result = result + "#" + u.getAddress();
+        }
+        return result;
     }
     public static ServerManager getInstance(){
         if(instance == null)

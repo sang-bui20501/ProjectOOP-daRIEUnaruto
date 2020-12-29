@@ -147,7 +147,6 @@ public class Main implements ActionListener{
 		// Pipe to init() in oder to initial
 		this.init(name1, name2);
 		
-		this.socketClient = SocketClient.getClient();
 	}
 	
 	public static void main(String[] args){

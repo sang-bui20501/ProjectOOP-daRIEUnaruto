@@ -11,8 +11,9 @@ public class ServerThread implements Runnable {
     private Socket s = null;
     private BufferedReader reader = null;
     private Scanner in = null;
-
     private PrintWriter out = null;
+    
+    private ServerManager manager = ServerManager.getInstance();
 
     public ServerThread(Socket s) throws IOException {
         System.out.println(s.getInetAddress());
@@ -27,12 +28,22 @@ public class ServerThread implements Runnable {
 
 	@Override
 	public void run() {
-		// try{
-        //     while(true){
-
-        //     }
-        // }catch(IOException e){
-        //     e.printStackTrace();
-        // }
+		try{
+            while(true){
+                String commands = this.in.nextLine();
+                switch(commands){
+                    case "ls":
+                        this.out.println(manager.getUserList());
+                        this.out.flush();
+                    case "host":
+                        User u = new User(s.getInetAddress().getHostAddress() , s.getPort());
+                        if(manager.isExist(u)) manager.removeUser(u);
+                        else manager.addUser(u);
+                        
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 	}
 }

@@ -19,7 +19,7 @@ public class Server extends Thread {
             while ((s = server.accept()) != null) {
                 new ServerThread(s);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

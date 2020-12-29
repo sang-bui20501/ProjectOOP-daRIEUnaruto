@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import com.oop.GameController.Controllers.NetworkManager;
+
 
 public class ServerUI extends JFrame{
                      
@@ -15,8 +17,13 @@ public class ServerUI extends JFrame{
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField portText;
+    
+    private NetworkManager manager = NetworkManager.getInstance();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+        manager.establishConnection(2005, "localhost");
+        manager.sendActiveHost();
+        System.out.println(manager.getUserList());
     }                                        
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {                                    

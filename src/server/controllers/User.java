@@ -2,14 +2,8 @@ package server.controllers;
 
 public class User {
     private String ip;
-    private int port;
-    public User(String ip , int port){
+    public User(String ip){
         this.ip = ip;
-        this.port = port;
-    }
-
-    public int getPort(){
-        return this.port;
     }
     public String getAddress(){
         return this.ip;

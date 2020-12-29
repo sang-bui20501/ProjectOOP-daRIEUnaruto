@@ -2,14 +2,18 @@ package com.oop.GameController.Networking;
 
 import java.awt.Dimension;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import com.oop.GameController.Controllers.NetworkManager;
 
+import server.controllers.ServerManager;
 
-public class ServerUI extends JFrame{
+
+public class ServerUI extends JFrame implements Runnable{
                      
     private javax.swing.JTextField ipText;
     private javax.swing.JButton jButton1;
@@ -17,25 +21,33 @@ public class ServerUI extends JFrame{
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField portText;
-    
+    private String[] ipList;
     private NetworkManager manager = NetworkManager.getInstance();
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-        manager.establishConnection(2005, "localhost");
-        manager.sendActiveHost();
-        System.out.println(manager.getUserList());
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {    
+        String responseMessage = manager.sendActiveHost();
+        this.ipList = manager.getUserList().split("#");
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = ipList;
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        this.repaint();
+
+        if(responseMessage.equals("add")){
+            manager.initialServer();
+        }else manager.clearServer();
     }                                        
 
-    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {                                    
-        // TODO add your handling code here:
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {     
     }                                   
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-           // TODO add your handling code here:
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {       
+
     } 
-    
+
     private ServerUI(){
 
+        manager.establishConnection(2005, "localhost");
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
@@ -51,9 +63,9 @@ public class ServerUI extends JFrame{
                 jButton1ActionPerformed(evt);
             }
         });
-
+        ipList = manager.getUserList().split("#");
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = ipList;
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -118,8 +130,15 @@ public class ServerUI extends JFrame{
         
         pack();
         
+        
     }
     public static void main(String[] args){
         (new ServerUI()).setVisible(true);;
+    }
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+
     }
 }

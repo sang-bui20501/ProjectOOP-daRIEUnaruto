@@ -21,10 +21,14 @@ public class NetworkManager {
     public void establishConnection(int port , String ip){
         this.client = new SocketClient(port , ip);
     }
-    public void sendActiveHost(){
-        client.sendQuery("host");
+    public String sendActiveHost(){
+        return client.sendQuery("host");
     }
     public String getUserList(){
         return client.sendQuery("ls");
     }
+	public void initialServer() {
+	}
+	public void clearServer() {
+	}
 }

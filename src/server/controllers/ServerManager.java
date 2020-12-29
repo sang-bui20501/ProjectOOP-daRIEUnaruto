@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ServerManager {
     private static ServerManager instance = null;
-    private List<User> userList;
+    private ArrayList<User> userList;
     private ServerManager (){
         this.userList = new ArrayList<User>();
     }
@@ -14,10 +14,20 @@ public class ServerManager {
         userList.add(u);
     }
     public boolean isExist(User u){
-        return userList.contains(u);
+        System.out.println(u.getAddress());
+        for(User user : this.userList){
+            if(user.getAddress().equals(u.getAddress()))
+                return true;
+        }
+        return false;
     }
     public void removeUser(User u){
-        this.userList.remove(u);
+        for(User user : this.userList){
+            if(user.getAddress().equals(u.getAddress())){
+                this.userList.remove(user);
+                return;
+            }
+        }
     }
     public String getUserList(){
         String result = "";
@@ -25,6 +35,9 @@ public class ServerManager {
             result = result + "#" + u.getAddress();
         }
         return result;
+    }
+    public int getUserListLength(){
+        return this.userList.size();
     }
     public static ServerManager getInstance(){
         if(instance == null)

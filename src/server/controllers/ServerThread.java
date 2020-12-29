@@ -26,7 +26,6 @@ public class ServerThread implements Runnable {
         new Thread(this).start();
     }
 
-	@Override
 	public void run() {
 		try{
             while(true){
@@ -35,10 +34,19 @@ public class ServerThread implements Runnable {
                     case "ls":
                         this.out.println(manager.getUserList());
                         this.out.flush();
+                        break;
                     case "host":
-                        User u = new User(s.getInetAddress().getHostAddress() , s.getPort());
-                        if(manager.isExist(u)) manager.removeUser(u);
-                        else manager.addUser(u);
+                        User u = new User(s.getInetAddress().getHostAddress());
+                        if(manager.isExist(u)) {
+                            manager.removeUser(u);
+                            this.out.println("remove");
+                        } else{
+                            manager.addUser(u);
+                            this.out.println("add");
+                        } 
+                        this.out.println();
+                        this.out.flush();
+                        break;
                         
                 }
             }

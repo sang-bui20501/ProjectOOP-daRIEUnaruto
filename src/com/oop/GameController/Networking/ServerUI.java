@@ -23,15 +23,17 @@ public class ServerUI extends JFrame implements Runnable{
     private javax.swing.JTextField portText;
     private String[] ipList;
     private NetworkManager manager = NetworkManager.getInstance();
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {    
-        String responseMessage = manager.sendActiveHost();
-        this.ipList = manager.getUserList().split("#");
+    /*this.ipList = manager.getUserList().split("#");
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = ipList;
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         this.repaint();
+    */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
+        String responseMessage = manager.sendActiveHost();
+        
 
         if(responseMessage.equals("add")){
             manager.initialServer();
@@ -42,7 +44,10 @@ public class ServerUI extends JFrame implements Runnable{
     }                                   
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {       
-
+        //Connect
+        String ip = this.ipText.getText();
+        manager.establishConnection(3005, ip);
+        System.out.println("Connect successfully");
     } 
 
     private ServerUI(){
@@ -60,7 +65,11 @@ public class ServerUI extends JFrame implements Runnable{
         jButton1.setText("Host");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+                    jButton1ActionPerformed(evt);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         ipList = manager.getUserList().split("#");

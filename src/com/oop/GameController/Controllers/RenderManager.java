@@ -1,7 +1,5 @@
  package com.oop.GameController.Controllers;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,61 +26,73 @@ import com.oop.GameController.Skill.SkillRender;
 
 public class RenderManager extends JPanel{
 	private static final long serialVersionUID = 1L;
-		
-	String name1;
-	String name2;
-	PlayerManager List_Player;
-	SkillManager List_Skill;
-	SkillRender mem;
-		
-	public RenderManager() {};
 	
-	public RenderManager(PlayerManager List_Player, SkillManager List_Skill) {
-		// Pipe the list of player and list of skill
-		this.List_Player = List_Player;
-		this.List_Skill= List_Skill;
+	SkillRender mem;
+	
+	boolean gameStatus = true;
+	
+	public RenderManager() {}
+	
+	public RenderManager(boolean gameStatus) {
+		this.gameStatus = gameStatus;
 	}
 	
 	public void paintComponent(Graphics g) {
-		// draw background
-		BufferedImage i0 = null;
-		try {
-			i0 = ImageIO.read(new File("src/resource/maps/konoha.jpg"));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		g.drawImage(i0, 0, 0, getWidth(), getHeight(), null);
 		
-		
-		// draw 2 player
-		
-		PlayerRender playerframe = new PlayerRender();
+		if (gameStatus) {
+			// draw background
+			BufferedImage i0 = null;
+			try {
+				i0 = ImageIO.read(new File("src/resource/maps/konoha.jpg"));
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(i0, 0, 0, getWidth(), getHeight(), null);
 			
-		playerframe = new PlayerRender(getWidth(), getHeight(), 1, PlayerManager.List_Player.get(0));
-		playerframe.paint(g);
-		this.add(playerframe);
 			
-		playerframe = new PlayerRender(getWidth(), getHeight(), 2, PlayerManager.List_Player.get(1));
-		playerframe.paint(g);
-		this.add(playerframe);
-		
-		
-		// draw "an chu"
-		mem = List_Skill.Mini_Skill;
-		mem.paint(g);
-		add(mem);
-		
-		// draw existed skill		
-		for (int i = 0; i < SkillManager.List_Skill.size(); ++i) {
-			mem = SkillManager.List_Skill.get(i);
+			// draw 2 player
+			
+			PlayerRender playerframe = new PlayerRender();
+				
+			playerframe = new PlayerRender(getWidth(), getHeight(), 1, PlayerManager.List_Player.get(0));
+			playerframe.paint(g);
+			this.add(playerframe);
+				
+			playerframe = new PlayerRender(getWidth(), getHeight(), 2, PlayerManager.List_Player.get(1));
+			playerframe.paint(g);
+			this.add(playerframe);
+			
+			
+			// draw "an chu"
+			mem = SkillManager.Mini_Skill.get(0);
 			mem.paint(g);
 			add(mem);
+			
+			mem = SkillManager.Mini_Skill.get(1);
+			mem.paint(g);
+			add(mem);
+			
+			// draw existed skill		
+			for (int i = 0; i < SkillManager.getMainListSkill().size(); ++i) {
+				mem = SkillManager.getMainListSkill().get(i);
+				mem.paint(g);
+				add(mem);
+			}
 		}
 		
-		
-		g.setColor(Color.white);
-		g.setFont(new Font("Arial", 1, 100));
+		else
+			
+		{
+			BufferedImage i0 = null;
+			try {
+				i0 = ImageIO.read(new File("src/resource/maps/KO.jpg"));
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(i0, 0, 0, getWidth(), getHeight(), null);
+		}
 	}
 	
 

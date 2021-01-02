@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import com.oop.GameController.Controllers.PlayerManager;
@@ -19,8 +20,13 @@ public class Main implements ActionListener{
 	
 	public static Main main;
 	
+	public static String name1;
+	public static String name2;
+	
 	public static JFrame j;
-	public Rectangle background;
+	
+	public final int w = 1000, h = 650;
+	
 	public RenderManager gameframe;
 	public SkillRender renSkill;
 	public PlayerManager List_Player;
@@ -30,11 +36,11 @@ public class Main implements ActionListener{
 	public Timer t_Player;
 	public Timer t_game;
 	
+	public boolean gameStatus = true;
 	
+	//int mainPlayerID = 1;
 	int mainPlayerID = 2;
 	Player mainPlayer;
-	
-	public final int w = 1000, h = 650;
 	
 	StringBuilder List_Key = new StringBuilder();
 	StringBuilder miniKey = new StringBuilder();
@@ -56,13 +62,13 @@ public class Main implements ActionListener{
 					renSkill = mainPlayer.generateSkill(List_Key.toString());
 					
 					if (renSkill != null) 
-						SkillManager.List_Skill.add(renSkill);
+						SkillManager.addSkill(renSkill);
 					
 					// Reset list of key pressed
 					List_Key = new StringBuilder();
 					
 					// Reset "an chu"
-					List_Skill.Mini_Skill = new SkillRender();
+					SkillManager.Mini_Skill.set(mainPlayerID - 1, new SkillRender());
 				}
 				else	// else generate "an chu" and add to Mini_Skill in order to generate. 
 				{
@@ -76,7 +82,7 @@ public class Main implements ActionListener{
 					renSkill = mainPlayer.generateSkill(miniKey.toString());
 					
 					if (renSkill != null) 
-						List_Skill.Mini_Skill = renSkill;
+						SkillManager.Mini_Skill.set(mainPlayerID - 1, renSkill);
 				}
 				
 				// Reset list of key pressed
@@ -91,66 +97,108 @@ public class Main implements ActionListener{
 		public void keyReleased(KeyEvent e) {}
 	};
 	
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		j.repaint();
+		
+		if (gameStatus && this.mainPlayer.dead) {
+			System.out.println("You dead!");
+			endGame(1);
+		}
+		
+		if (gameStatus && PlayerManager.List_Player.get(mainPlayerID % 2).dead) {
+			System.out.println("You won!");
+			endGame(2);
+		}
 	}
 	
 	
-	public void init(String name1, String name2) {
-		// Generate information of 2 characters and save in List
-		// For render and other
-		Player player1 = new Player(name1, 1);
-		Player player2 = new Player(name2, 2);
-		List_Player = new PlayerManager(player1, player2);
-		
-		// mainPlayer: only generates skill for this player
-		if (mainPlayerID == 1) 
-			mainPlayer = player1;
-		else 
-			mainPlayer = player2;
-		
-		// Get a list store the existing skill on one frame
-		List_Skill = SkillManager.getInstance();
-				
+	public void init() {
 		// Form the Frame
 		j = new JFrame();
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		j.setVisible(true);
 		j.setSize(w,h);
 		j.setResizable(true);
-		
-		// Add Keyboard Interactive 
-		j.addKeyListener(kbListener);
-		
-		// add content of Render
 		j.getContentPane().add(new RenderManager());
+	
+		
+		if (gameStatus) 
+		{
+			// Generate information of 2 characters and save in List
+			// For render and other
+			Player player1 = new Player(name1, 1);
+			Player player2 = new Player(name2, 2);
+			List_Player = new PlayerManager(player1, player2);
+			
+			// mainPlayer: only generates skill for this player
+			if (mainPlayerID == 1) 
+				mainPlayer = player1;
+			else 
+				mainPlayer = player2;
+			
+			// Get a list store the existing skill on one frame
+			List_Skill = SkillManager.getInstance(this.mainPlayerID);
+					
+			// Add Keyboard Interactive 
+			j.addKeyListener(kbListener);
+			
+			// create timer for automatic skill on frame and player attributed
+			t_Skill = new Timer(5, List_Skill);
+			t_Player = new Timer(500, List_Player);
+			
+			t_Skill.start();
+			t_Player.start();
+		}
 		
 		// Create gameframe
-		gameframe = new RenderManager(List_Player, List_Skill);
+		gameframe = new RenderManager(gameStatus);
 		j.add(gameframe);
 		
-		
-		t_Skill = new Timer(5, List_Skill);
-		t_Player = new Timer(400, List_Player);
 		t_game = new Timer(5, this);
-		t_Skill.start();
-		t_Player.start();
 		t_game.start();
 	}
 	
-	public Main(String name1, String name2) {
+	public void endGame(int term) {
+		t_game.stop();
+		t_Player.stop();
+		t_Skill.stop();
+		
+		this.gameStatus = false;
+		j.dispose();
+		init();
+		
+		String name;		
+		if (term == 1)
+			if (mainPlayerID == 1)
+				name = name2;
+			else
+				name = name1;
+		else
+			if (mainPlayerID == 1)
+				name = name1;
+			else
+				name = name2;
+		JOptionPane.showMessageDialog(null, name + " VICTORY !!!!!!!!!!" , "", JOptionPane.CLOSED_OPTION);
+	}
+	
+	public Main() {
 		//Must be identify the present player is id 1 or 2
 		//this.mainPlayerID = 1;
 		
 		// Pipe to init() in oder to initial
-		this.init(name1, name2);
+		this.init();
 	}
 	
 	public static void main(String[] args){
-		// main = new Main(args[0], args[1])
 		// Pipe names of 2 characters after connect and choose
-		//main = new Main("sasuke", "itachi");
-        main = new Main("itachi", "sasuke");
+		
+		//name1 = args[0];
+		//name2 = args[1];
+		
+		name1 = "itachi";
+		name2 = "sasuke";
+        main = new Main();
     }
 }

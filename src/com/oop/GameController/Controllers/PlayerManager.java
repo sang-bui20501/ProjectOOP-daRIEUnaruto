@@ -30,11 +30,11 @@ public class PlayerManager implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < 2; ++i) {
-			if (List_Player.get(i).mana < List_Player.get(i).true_mana) 
-				List_Player.get(i).mana += List_Player.get(i).manaRe;
+			Player tmp = List_Player.get(i);
 			
-			if (List_Player.get(i).mana <= 0 || List_Player.get(i).hp <= 0)
-				List_Player.get(i).dead = true;
+			if (tmp.mana < tmp.true_mana) tmp.mana += tmp.manaRe;
+			
+			if (tmp.mana <= 0 || tmp.hp <= 0) tmp.dead = true;
 		}
 	}
 }

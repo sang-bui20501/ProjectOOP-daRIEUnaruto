@@ -128,6 +128,7 @@ public class SkillRender extends JPanel {
 					
 					if (player.mana < this.mana) {
 						System.out.println("Out of mana");
+						destroy();
 						return;
 					}
 					

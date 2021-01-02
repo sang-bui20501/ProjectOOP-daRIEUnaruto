@@ -16,45 +16,67 @@ import com.oop.GameController.Skill.SkillRender;
 
 // Singleton
 public class SkillManager implements ActionListener {
-	
+	// Singleton
 	private static SkillManager instance = null;
 	
-	public SkillRender Mini_Skill = new SkillRender();
-	public static ArrayList<SkillRender> List_Skill = new ArrayList<SkillRender>();
+	// Define the id of main player
+	public static int player_id;
 	
-	private SkillManager() {}
+	// "An chu"
+	public static ArrayList<SkillRender> Mini_Skill = new ArrayList<SkillRender>(2);
 	
-	public static SkillManager getInstance() {
+	// Save 2 ArrayList of skill of 2 players into an ArrayList
+	public static ArrayList<ArrayList<SkillRender>> List_Skill = new ArrayList<ArrayList<SkillRender>>(2);
+	
+	
+	private SkillManager(int id) {
+		player_id = id;
+		
+		List_Skill.add(new ArrayList<SkillRender>());
+		List_Skill.add(new ArrayList<SkillRender>());
+		Mini_Skill.add(new SkillRender());
+		Mini_Skill.add(new SkillRender());
+	}
+	
+	public static SkillManager getInstance(int id) {
 		if (instance == null) 
-			instance = new SkillManager();
+			instance = new SkillManager(id);
 		return instance;
 	}
 	
-	public static void addSkill(SkillRender skill) {
-		List_Skill.add(skill);
+	
+	public static ArrayList<SkillRender> getMainListSkill() {
+		return List_Skill.get(player_id - 1);
 	}
 
+	public static void addSkill(SkillRender skill) {
+		getMainListSkill().add(skill);
+	}
+	
+	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		for (int i = 0; i < List_Skill.size(); ++i) {
-			SkillRender mem = List_Skill.get(i);
-			
-			//Check intersects of skill - player
+	public void actionPerformed(ActionEvent e) 
+	{
+		// get existing skill of player
+		for (SkillRender mem : getMainListSkill()) 
+		{
 			
 			// bound of skill
 			Rectangle skillBound = mem.getBound();
 			
+			
+			//Check intersects of skill - player
+						
 			// bound of opposite player
 			Rectangle playerBound = PlayerManager.List_Player.get(mem.id % 2).getBound();
-			if (skillBound.intersects(playerBound)) {
-				
+			if (skillBound.intersects(playerBound))
+			{	
 				// Decrease HP base one shield and damage
-				int tmp = List_Skill.get(i).damage;
+				int tmp = mem.damage;
 				tmp -= PlayerManager.List_Player.get(mem.id % 2).shield;
 				
 				if (tmp < 0) {
-					PlayerManager.List_Player.get(mem.id % 2).shield -= List_Skill.get(i).damage;
+					PlayerManager.List_Player.get(mem.id % 2).shield -= mem.damage;
 					tmp = 0;
 				}
 				else
@@ -62,23 +84,36 @@ public class SkillManager implements ActionListener {
 				
 				PlayerManager.List_Player.get(mem.id % 2).hp -= tmp;
 				
+				if (PlayerManager.List_Player.get(mem.id % 2).hp <= 0)
+					PlayerManager.List_Player.get(mem.id % 2).hp = -1;
+				
 				mem.destroy();
 			}
 			
 			// Check intersects of skill - skill
-			/*
-			for (int i = 0; i < PlayerManager.List_Player.get(mem.id % 2).List_Skill.size(); ++i) {
-				Rectangle mem_2 = PlayerManager.List_Player.get(mem.id % 2).List_Skill.get(i).getBound();
-				if (skillBound.intersects(mem_2)) {
-					PlayerManager.List_Player.get(mem.id % 2).List_Skill.get(i).status = false;
+			
+			// bound of skill of opposite player
+			for (SkillRender mem_2 : List_Skill.get(player_id % 2)) 
+			{
+				Rectangle skillBound_2 = mem_2.getBound();
+				
+				if (skillBound.intersects(skillBound_2)) 
+				{
+					mem.status = false;
+					mem_2.status = false;
 					mem.destroy();
 				}
 			}
-			*/
-			
+		}
+		
+		
+		int i = 0;
+		while (i < SkillManager.getMainListSkill().size()) {
 			// Check the status of skill
-			if (mem.status == false)
-				List_Skill.remove(i);
+			if (SkillManager.getMainListSkill().get(i).status == false) 
+				getMainListSkill().remove(i);
+			else
+				++i;
 		}
 		
 	}

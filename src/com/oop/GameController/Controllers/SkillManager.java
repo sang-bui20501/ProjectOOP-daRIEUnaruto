@@ -26,7 +26,7 @@ public class SkillManager implements ActionListener {
 	public static ArrayList<SkillRender> Mini_Skill = new ArrayList<SkillRender>(2);
 	
 	// Save 2 ArrayList of skill of 2 players into an ArrayList
-	public static ArrayList<ArrayList<SkillRender>> List_Skill = new ArrayList<ArrayList<SkillRender>>(2);
+	public static ArrayList<ArrayList<SkillRender>> List_Skill = new ArrayList<ArrayList<SkillRender>>(2); // <-----
 	
 	
 	private SkillManager(int id) {

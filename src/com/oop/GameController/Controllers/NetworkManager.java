@@ -1,8 +1,12 @@
 package com.oop.GameController.Controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,87 +14,120 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.oop.GameController.Networking.SocketClient;
+import javax.swing.Timer;
 
+import com.oop.Main;
+import com.oop.GameController.Networking.SocketClient;
+import com.oop.GameController.Player.Player;
+import com.oop.GameController.Skill.SkillRender;
 
 public class NetworkManager {
-    private ArrayList<Thread> threadList;
-    private ServerSocket server;
+    private ServerSocket server = null;
     private static NetworkManager instance = null;
-    
-    private SocketClient client;
 
-    public static NetworkManager getInstance(){
-        if(instance == null)
+    private SocketClient client = null;
+
+    private int port;
+    private String ip;
+    public static NetworkManager getInstance() {
+        if (instance == null)
             instance = new NetworkManager();
         return instance;
     }
-    private NetworkManager(){
-        this.threadList = new ArrayList<Thread>();
+
+    /**
+     * @implNote establish p2p connection.
+     */
+    public void establishConnection(int port, String ip) {
+        this.port = port;
+        this.ip = ip;
+        
+        if(port == 3005) {
+            Timer keepAlive = new Timer(100 , new SocketClient(port , ip));
+            keepAlive.start();
+        }
     }
 
-    public void establishConnection(int port , String ip){
-        this.client = new SocketClient(port , ip);
-    }
-
-    public String sendActiveHost(){
+    public String sendActiveHost() {
         return client.sendQuery("host");
     }
 
-    public String getUserList(){
+    public String getUserList() {
+        if(this.client == null)
+            this.client = new SocketClient(port , ip);
         return client.sendQuery("ls");
     }
 
-	public void initialServer() throws IOException {
+    public void initialServer() throws IOException {
         this.server = new ServerSocket(3005);
         System.out.println("Server listening");
-        Socket s = null;
-        try {
-            while ((s = server.accept()) != null) {
-                ClientServerThread t = new ClientServerThread(s);
-                this.threadList.add(t.getThread());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        Timer timer = new Timer(10000000, Main.getInstance());
+        timer.start();
+
+
+        Timer getClient = new Timer(1 , new ActionListener(){
+
+            Socket s = null;    
+			@Override
+			public void actionPerformed(ActionEvent ee) { 
+                try {
+                    if (s == null) {    
+                        s = server.accept();
+                        Timer childTimer = new Timer(70 , new ClientServerThread(s));
+                        childTimer.start();
+                    }
+                    
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
         }
+        });
+        getClient.start();
     }
     
 	public void clearServer() {
-        for(Thread t : this.threadList)
-            t.stop();
         try {
-            this.server.close();
+            if(this.server != null)
+                this.server.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 	}
 }
-class ClientServerThread implements Runnable{
+class ClientServerThread implements ActionListener {
     private Socket s = null;
-    private BufferedReader reader = null;
-    private Scanner in = null;
-    private PrintWriter out = null;
-    private Thread t;
     public ClientServerThread(Socket s) throws IOException {
         this.s = s;
-        this.reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        this.in = new Scanner(s.getInputStream() , "UTF-8");
-        this.out = new PrintWriter(s.getOutputStream());
-        this.t = new Thread(this);
-        t.start();
     }
-    public void run() {
-        try{
-            while(true){
 
-            }
-        }catch(Exception e){
-            e.printStackTrace();
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //Get info
+        try {
+            ObjectInputStream inp = new ObjectInputStream(s.getInputStream());
+            ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
+
+            
+            
+            ArrayList<Player> responsePlayer  = (ArrayList<Player>) inp.readObject();
+            ArrayList<ArrayList<SkillRender>> responseSkillList  = (ArrayList<ArrayList<SkillRender>>) inp.readObject();
+
+            ArrayList<Player> player = PlayerManager.List_Player;
+            ArrayList<ArrayList<SkillRender>> skillList = SkillManager.List_Skill;
+            out.writeObject(player);
+            out.writeObject(skillList);
+            out.flush();
+
+
+            
+            PlayerManager.List_Player = responsePlayer;
+            SkillManager.List_Skill = responseSkillList;
+
+        } catch (Exception e1) { 
+            e1.printStackTrace();
         }
-
-    }
-    public Thread getThread(){
-        return this.t;
+        
     }
 
 }

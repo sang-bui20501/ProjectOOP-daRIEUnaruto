@@ -2,12 +2,12 @@ package com.oop.GameController.Networking;
 
 import java.awt.Dimension;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
+import com.oop.Main;
 import com.oop.GameController.Controllers.NetworkManager;
 
 import server.controllers.ServerManager;
@@ -33,8 +33,6 @@ public class ServerUI extends JFrame implements Runnable{
     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
         String responseMessage = manager.sendActiveHost();
-        
-
         if(responseMessage.equals("add")){
             manager.initialServer();
         }else manager.clearServer();
@@ -46,8 +44,11 @@ public class ServerUI extends JFrame implements Runnable{
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {       
         //Connect
         String ip = this.ipText.getText();
+        
+        Timer timer = new Timer(10000000, Main.getInstance());
+        timer.start();
         manager.establishConnection(3005, ip);
-        System.out.println("Connect successfully");
+        
     } 
 
     private ServerUI(){
@@ -63,7 +64,7 @@ public class ServerUI extends JFrame implements Runnable{
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jButton1.setText("Host");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     jButton1ActionPerformed(evt);

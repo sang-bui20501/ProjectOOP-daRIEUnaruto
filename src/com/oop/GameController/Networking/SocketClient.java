@@ -20,7 +20,6 @@ import java.util.Scanner;
 import com.oop.GameController.Controllers.PlayerManager;
 import com.oop.GameController.Controllers.SkillManager;
 import com.oop.GameController.Player.Player;
-import com.oop.GameController.Skill.SkillList;
 import com.oop.GameController.Skill.SkillRender;
 
 import java.awt.event.ActionEvent;

@@ -163,7 +163,8 @@ public class SkillRender extends JPanel implements Serializable {
 			else
 				
 			{
-				update(i);
+				System.out.println("here?");
+				i = update(i);
 				g.drawImage(i, xS, yS, wS, hS, null);
 			}
 		}
@@ -188,7 +189,7 @@ public class SkillRender extends JPanel implements Serializable {
 		}
 	}
 	
-	public void update(BufferedImage i) {
+	public BufferedImage update(BufferedImage i) {
 		xS += (this.id == 1 ? speed : -speed);
 		
 		
@@ -196,17 +197,17 @@ public class SkillRender extends JPanel implements Serializable {
 		try {
 			this.cntAni = (this.cntAni + 1) % this.numAni;
 			path = "src/resource/skills/" + player.name + "/" + key + player.id + this.cntAni + ".png";
-			i = ImageIO.read(new File(path));
+			return ImageIO.read(new File(path));
 		}
 		catch (IOException e) {
 			destroy();
 			System.out.println("-----------------> Wrong animation skill <-----------------");
-			return;
 		}
 		
 		
 		// Out of window
 		if (xS <= 0 || xS > Main.getInstance().j.getWidth() || yS <= 0 || yS > Main.getInstance().j.getHeight()) destroy();
+		return null;
 	}
 	
 	public void destroy() {

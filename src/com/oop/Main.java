@@ -202,25 +202,28 @@ public class Main implements ActionListener{
 	}
 	
 	private Main() {
-		//Must be identify the present player is id 1 or 2
-		//this.mainPlayerID = 1;
+		this.mainPlayerID = 1;
 		
-		// Pipe to init() in oder to initial
 		this.init();
 	}
-
+	
+	private Main(int id) {
+		// Identify the present player is id 1 or 2 based on host or client
+		this.mainPlayerID = id;
+		
+		// initial
+		this.init();
+	}
+	
 	public static Main getInstance(){
 		if(mainInstance == null)
 			mainInstance = new Main();
 		return mainInstance;
 	}
-
-	public static void main(String[] args){
-		// Pipe names of 2 characters after connect and choose
-		
-		//name1 = args[0];
-		//name2 = args[1];
-        new Main();
-    }
 	
+	public static Main getInstance(int id){
+		if(mainInstance == null)
+			mainInstance = new Main(id);
+		return mainInstance;
+	}
 }

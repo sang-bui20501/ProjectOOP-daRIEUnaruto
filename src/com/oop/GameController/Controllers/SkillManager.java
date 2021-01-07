@@ -48,6 +48,10 @@ public class SkillManager implements ActionListener {
 	public static ArrayList<SkillRender> getMainListSkill() {
 		return List_Skill.get(player_id - 1);
 	}
+	
+	public static ArrayList<SkillRender> getEnemyListSkill() {
+		return List_Skill.get(player_id % 2);
+	}
 
 	public static void addSkill(SkillRender skill) {
 		getMainListSkill().add(skill);
@@ -91,17 +95,16 @@ public class SkillManager implements ActionListener {
 			}
 			
 			// Check intersects of skill - skill
-			
+
 			// bound of skill of opposite player
-			for (SkillRender mem_2 : List_Skill.get(player_id % 2)) 
+			for (SkillRender mem_2 : getEnemyListSkill()) 
 			{
 				Rectangle skillBound_2 = mem_2.getBound();
 				
 				if (skillBound.intersects(skillBound_2)) 
 				{
-					mem.status = false;
-					mem_2.status = false;
 					mem.destroy();
+					mem_2.destroy();
 				}
 			}
 		}
@@ -111,6 +114,15 @@ public class SkillManager implements ActionListener {
 		while (i < SkillManager.getMainListSkill().size()) {
 			// Check the status of skill
 			if (SkillManager.getMainListSkill().get(i).status == false) 
+				getMainListSkill().remove(i);
+			else
+				++i;
+		}
+		
+		i = 0;
+		while (i < SkillManager.getEnemyListSkill().size()) {
+			// Check the status of skill
+			if (SkillManager.getEnemyListSkill().get(i).status == false) 
 				getMainListSkill().remove(i);
 			else
 				++i;

@@ -163,7 +163,7 @@ public class SkillRender extends JPanel implements Serializable {
 			else
 				
 			{
-				System.out.println("here?");
+				//System.out.println("here?");
 				i = update(i);
 				g.drawImage(i, xS, yS, wS, hS, null);
 			}

@@ -62,7 +62,7 @@ public class NetworkManager {
         this.server = new ServerSocket(3005);
         System.out.println("Server listening");
 
-        Timer timer = new Timer(10000000, Main.getInstance());
+        Timer timer = new Timer(10000000, Main.getInstance(1));
         timer.start();
 
 

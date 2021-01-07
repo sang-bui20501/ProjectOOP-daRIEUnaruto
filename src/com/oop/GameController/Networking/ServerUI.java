@@ -45,7 +45,7 @@ public class ServerUI extends JFrame implements Runnable{
         //Connect
         String ip = this.ipText.getText();
         
-        Timer timer = new Timer(10000000, Main.getInstance());
+        Timer timer = new Timer(10000000, Main.getInstance(2));
         timer.start();
         manager.establishConnection(3005, ip);
         

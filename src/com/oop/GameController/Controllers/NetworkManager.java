@@ -2,18 +2,12 @@ package com.oop.GameController.Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import javax.swing.Timer;
 
 import com.oop.Main;
@@ -29,6 +23,7 @@ public class NetworkManager {
 
     private int port;
     private String ip;
+    
     public static NetworkManager getInstance() {
         if (instance == null)
             instance = new NetworkManager();

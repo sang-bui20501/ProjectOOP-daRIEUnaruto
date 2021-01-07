@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.Scanner;
 
-import com.oop.GameController.Controllers.SkillManager;
 import com.oop.GameController.Skill.SkillRender;
 
 /*

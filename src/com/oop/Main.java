@@ -1,11 +1,9 @@
 package com.oop;
 
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,8 +19,8 @@ public class Main implements ActionListener{
 	
 	private static Main mainInstance = null;
 	
-	public String name1;
-	public String name2;
+	public String name1 = "itachi";
+	public String name2 = "sasuke";
 	
 	public JFrame j;
 	
@@ -39,8 +37,7 @@ public class Main implements ActionListener{
 	
 	public boolean gameStatus = true;
 	
-	//int mainPlayerID = 1;
-	int mainPlayerID = 2;
+	int mainPlayerID = 1;
 	Player mainPlayer;
 	
 	StringBuilder List_Key = new StringBuilder();
@@ -113,24 +110,8 @@ public class Main implements ActionListener{
 			endGame(2);
 		}
 	}
-	private void reRender(){
-		j.repaint();
-		
-		if (gameStatus && this.mainPlayer.dead) {
-			System.out.println("You dead!");
-			endGame(1);
-		}
-		
-		if (gameStatus && PlayerManager.List_Player.get(mainPlayerID % 2).dead) {
-			System.out.println("You won!");
-			endGame(2);
-		}
-	}
 	
 	public void init() {
-
-		this.name1 = "itachi";
-		this.name2 = "sasuke";
 		
 		// Form the Frame
 		j = new JFrame();
@@ -201,19 +182,31 @@ public class Main implements ActionListener{
 		JOptionPane.showMessageDialog(null, name + " VICTORY !!!!!!!!!!" , "", JOptionPane.CLOSED_OPTION);
 	}
 	
-	private Main() {
-		this.mainPlayerID = 1;
-		
-		this.init();
-	}
 	
-	private Main(int id) {
+	private Main() {
 		// Identify the present player is id 1 or 2 based on host or client
-		this.mainPlayerID = id;
+		this.mainPlayerID = 1;
 		
 		// initial
 		this.init();
 	}
+	
+	private Main(int id) {
+		this.mainPlayerID = id;	
+		this.init();
+	}
+	
+	private Main(int id, String charText) {
+		this.mainPlayerID = id;
+		
+		if (mainPlayerID == 1)
+			this.name1 = charText;
+		else
+			this.name2 = charText;
+		
+		this.init();
+	}
+	
 	
 	public static Main getInstance(){
 		if(mainInstance == null)
@@ -224,6 +217,12 @@ public class Main implements ActionListener{
 	public static Main getInstance(int id){
 		if(mainInstance == null)
 			mainInstance = new Main(id);
+		return mainInstance;
+	}
+	
+	public static Main getInstance(int id, String charText){
+		if(mainInstance == null)
+			mainInstance = new Main(id, charText);
 		return mainInstance;
 	}
 }

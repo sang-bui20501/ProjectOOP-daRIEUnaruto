@@ -121,7 +121,7 @@ public class SkillManager implements ActionListener {
 		
 		i = 0;
 		while (i < SkillManager.getEnemyListSkill().size()) {
-			// Check the status of skill
+			// Check the status of enemy skill
 			if (SkillManager.getEnemyListSkill().get(i).status == false) 
 				getMainListSkill().remove(i);
 			else

@@ -21,5 +21,5 @@
   - Gameplay mechanics 
 
 ### How to play 
-- Press the correct combination of keys from ![Mini Skill](/src/resource/skills/anchu.png)
+- Press the correct combination of keys from ![Mini Skill](/src/resource/skills/anchu/anchu.png)
 - Then, press `Space` in order to casting that skill. <br/>

@@ -28,7 +28,6 @@ public class PlayerManager implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		for (int i = 0; i < 2; ++i) {
 			Player tmp = List_Player.get(i);
 			

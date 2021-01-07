@@ -21,5 +21,12 @@
   - Gameplay mechanics 
 
 ### How to play 
-- Press the correct combination of keys from ![Mini Skill](/src/resource/skills/anchu/anchu.png)
+- Press the correct combination of keys from <br/>
+![Mini Skill](/src/resource/skills/anchu/anchu.png)
 - Then, press `Space` in order to casting that skill. <br/>
+- See the combination in `/src/resource/skills/<character name>`
+
+### Example
+![Katon: Goukakyuu No Jutsu](/report/ex1.png)
+<br/>
+![Kuchiyose no Jutsu](/report/ex2.png)

@@ -13,6 +13,8 @@ import com.oop.GameController.Skill.SkillRender;
  */
 
 public class Player implements Serializable{
+	public boolean useSkill = false;
+	public boolean changeState = false;
 	public int id;
 	public int true_hp;
 	public int hp;

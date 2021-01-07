@@ -38,7 +38,7 @@ public class NetworkManager {
         this.ip = ip;
         
         if(port == 3005) {
-            Timer keepAlive = new Timer(100 , new SocketClient(port , ip));
+            Timer keepAlive = new Timer(1 , new SocketClient(port , ip));
             keepAlive.start();
         }
     }
@@ -69,7 +69,7 @@ public class NetworkManager {
                 try {
                     if (s == null) {    
                         s = server.accept();
-                        Timer childTimer = new Timer(70 , new ClientServerThread(s));
+                        Timer childTimer = new Timer(1 , new ClientServerThread(s));
                         childTimer.start();
                     }
                     
@@ -103,21 +103,25 @@ class ClientServerThread implements ActionListener {
             ObjectInputStream inp = new ObjectInputStream(s.getInputStream());
             ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
 
-            
-            
-            ArrayList<Player> responsePlayer  = (ArrayList<Player>) inp.readObject();
-            ArrayList<ArrayList<SkillRender>> responseSkillList  = (ArrayList<ArrayList<SkillRender>>) inp.readObject();
-
             ArrayList<Player> player = PlayerManager.List_Player;
             ArrayList<ArrayList<SkillRender>> skillList = SkillManager.List_Skill;
+            
+            
             out.writeObject(player);
             out.writeObject(skillList);
             out.flush();
-
-
             
+                
+            ArrayList<Player> responsePlayer  = (ArrayList<Player>) inp.readObject();
+            ArrayList<ArrayList<SkillRender>> responseSkillList  = (ArrayList<ArrayList<SkillRender>>) inp.readObject();
+
             PlayerManager.List_Player = responsePlayer;
-            SkillManager.List_Skill = responseSkillList;
+            if(responsePlayer.get(1 - Main.getInstance().mainPlayerID + 1).useSkill){
+                SkillManager.List_Skill = responseSkillList;
+            }
+            if(player.get(Main.getInstance().mainPlayerID - 1).useSkill)
+                player.get(Main.getInstance().mainPlayerID - 1).useSkill = false;
+            
 
         } catch (Exception e1) { 
             e1.printStackTrace();

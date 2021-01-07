@@ -50,7 +50,7 @@ public class SkillManager implements ActionListener {
 	}
 	
 	public static ArrayList<SkillRender> getEnemyListSkill() {
-		return List_Skill.get(player_id % 2);
+		return List_Skill.get(player_id % 2 );
 	}
 
 	public static void addSkill(SkillRender skill) {
@@ -75,6 +75,7 @@ public class SkillManager implements ActionListener {
 			Rectangle playerBound = PlayerManager.List_Player.get(mem.id % 2).getBound();
 			if (skillBound.intersects(playerBound))
 			{	
+				PlayerManager.List_Player.get(mem.id % 2).changeState = true;	
 				// Decrease HP base one shield and damage
 				int tmp = mem.damage;
 				tmp -= PlayerManager.List_Player.get(mem.id % 2).shield;

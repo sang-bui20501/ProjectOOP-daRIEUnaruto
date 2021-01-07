@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -15,7 +16,7 @@ import com.oop.Main;
 import com.oop.GameController.Controllers.SkillManager;
 import com.oop.GameController.Player.Player;
 
-public class SkillRender extends JPanel {
+public class SkillRender extends JPanel implements Serializable {
 	private static final long serialVersionUID = 3L;
 	
 	// info in skill_info.txt
@@ -44,7 +45,7 @@ public class SkillRender extends JPanel {
 	// path of png
 	String path = new String();
 	
-	BufferedImage i = null;
+	// private 
 	
 	public SkillRender() {};
 	
@@ -77,6 +78,7 @@ public class SkillRender extends JPanel {
 
 	public void paint(Graphics g) 
 	{
+		BufferedImage i = null;
 		if (this.key == null) return;
 			
 		if (this.key.length() > 4) {
@@ -161,7 +163,8 @@ public class SkillRender extends JPanel {
 			else
 				
 			{
-				update();
+				//System.out.println("here?");
+				i = update(i);
 				g.drawImage(i, xS, yS, wS, hS, null);
 			}
 		}
@@ -186,7 +189,7 @@ public class SkillRender extends JPanel {
 		}
 	}
 	
-	public void update() {
+	public BufferedImage update(BufferedImage i) {
 		xS += (this.id == 1 ? speed : -speed);
 		
 		
@@ -194,17 +197,17 @@ public class SkillRender extends JPanel {
 		try {
 			this.cntAni = (this.cntAni + 1) % this.numAni;
 			path = "src/resource/skills/" + player.name + "/" + key + player.id + this.cntAni + ".png";
-			i = ImageIO.read(new File(path));
+			return ImageIO.read(new File(path));
 		}
 		catch (IOException e) {
 			destroy();
 			System.out.println("-----------------> Wrong animation skill <-----------------");
-			return;
 		}
 		
 		
 		// Out of window
-		if (xS <= 0 || xS > Main.j.getWidth() || yS <= 0 || yS > Main.j.getHeight()) destroy();
+		if (xS <= 0 || xS > Main.getInstance().j.getWidth() || yS <= 0 || yS > Main.getInstance().j.getHeight()) destroy();
+		return null;
 	}
 	
 	public void destroy() {

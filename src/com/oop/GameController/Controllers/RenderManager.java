@@ -64,18 +64,26 @@ public class RenderManager extends JPanel{
 			this.add(playerframe);
 			
 			
-			// draw "an chu"
+			// draw this "an chu"
 			mem = SkillManager.Mini_Skill.get(0);
 			mem.paint(g);
 			add(mem);
 			
+			// draw enemy "an chu"
 			mem = SkillManager.Mini_Skill.get(1);
 			mem.paint(g);
 			add(mem);
 			
-			// draw existed skill		
+			// draw existed skill of this player	
 			for (int i = 0; i < SkillManager.getMainListSkill().size(); ++i) {
 				mem = SkillManager.getMainListSkill().get(i);
+				mem.paint(g);
+				add(mem);
+			}
+			
+			// draw existed skill of enemy	
+			for (int i = 0; i < SkillManager.getEnemyListSkill().size(); ++i) {
+				mem = SkillManager.getEnemyListSkill().get(i);
 				mem.paint(g);
 				add(mem);
 			}

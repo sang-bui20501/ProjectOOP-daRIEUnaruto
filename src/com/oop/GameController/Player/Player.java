@@ -3,6 +3,7 @@ package com.oop.GameController.Player;
 import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.Scanner;
 
 import com.oop.GameController.Controllers.SkillManager;
@@ -12,7 +13,7 @@ import com.oop.GameController.Skill.SkillRender;
  * Save the information of player
  */
 
-public class Player {
+public class Player implements Serializable{
 	public int id;
 	public int true_hp;
 	public int hp;

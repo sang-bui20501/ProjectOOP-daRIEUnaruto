@@ -17,7 +17,7 @@ import com.oop.GameController.Player.Player;
 
 
 public class PlayerManager implements ActionListener {
-	public static ArrayList<Player> List_Player;
+	public static ArrayList<Player> List_Player; // <---- 
 	
 	// Add player object to save in list
 	public PlayerManager(Player player1, Player player2) {

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,12 +19,12 @@ import com.oop.GameController.Skill.SkillRender;
 
 public class Main implements ActionListener{
 	
-	public static Main main;
+	private static Main mainInstance = null;
 	
-	public static String name1;
-	public static String name2;
+	public String name1;
+	public String name2;
 	
-	public static JFrame j;
+	public JFrame j;
 	
 	public final int w = 1000, h = 650;
 	
@@ -112,13 +113,28 @@ public class Main implements ActionListener{
 			endGame(2);
 		}
 	}
-	
+	private void reRender(){
+		j.repaint();
+		
+		if (gameStatus && this.mainPlayer.dead) {
+			System.out.println("You dead!");
+			endGame(1);
+		}
+		
+		if (gameStatus && PlayerManager.List_Player.get(mainPlayerID % 2).dead) {
+			System.out.println("You won!");
+			endGame(2);
+		}
+	}
 	
 	public void init() {
+
+		this.name1 = "itachi";
+		this.name2 = "sasuke";
+		
 		// Form the Frame
 		j = new JFrame();
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		j.setVisible(true);
 		j.setSize(w,h);
 		j.setResizable(true);
 		j.getContentPane().add(new RenderManager());
@@ -128,6 +144,7 @@ public class Main implements ActionListener{
 		{
 			// Generate information of 2 characters and save in List
 			// For render and other
+			// 1 = host , 2 = connect <---
 			Player player1 = new Player(name1, 1);
 			Player player2 = new Player(name2, 2);
 			List_Player = new PlayerManager(player1, player2);
@@ -158,6 +175,7 @@ public class Main implements ActionListener{
 		
 		t_game = new Timer(5, this);
 		t_game.start();
+		j.setVisible(true);
 	}
 	
 	public void endGame(int term) {
@@ -183,22 +201,29 @@ public class Main implements ActionListener{
 		JOptionPane.showMessageDialog(null, name + " VICTORY !!!!!!!!!!" , "", JOptionPane.CLOSED_OPTION);
 	}
 	
-	public Main() {
-		//Must be identify the present player is id 1 or 2
-		//this.mainPlayerID = 1;
+	private Main() {
+		this.mainPlayerID = 1;
 		
-		// Pipe to init() in oder to initial
 		this.init();
 	}
 	
-	public static void main(String[] args){
-		// Pipe names of 2 characters after connect and choose
+	private Main(int id) {
+		// Identify the present player is id 1 or 2 based on host or client
+		this.mainPlayerID = id;
 		
-		//name1 = args[0];
-		//name2 = args[1];
-		
-		name1 = "itachi";
-		name2 = "sasuke";
-        main = new Main();
-    }
+		// initial
+		this.init();
+	}
+	
+	public static Main getInstance(){
+		if(mainInstance == null)
+			mainInstance = new Main();
+		return mainInstance;
+	}
+	
+	public static Main getInstance(int id){
+		if(mainInstance == null)
+			mainInstance = new Main(id);
+		return mainInstance;
+	}
 }

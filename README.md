@@ -19,3 +19,7 @@
   - Networking system <br/>
   - Design UML Diagram <br/>
   - Gameplay mechanics <br/>
+
+<h1> How to play </h1>
+- Press the correct combination of keys from ![mini skill](./src/resource/skills/anchu.png) <br/>
+- Then, press `Space` in order to casting that skill. <br/>

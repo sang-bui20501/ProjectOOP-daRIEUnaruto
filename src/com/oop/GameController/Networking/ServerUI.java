@@ -1,17 +1,11 @@
 package com.oop.GameController.Networking;
 
-import java.awt.Dimension;
 import java.io.IOException;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import com.oop.Main;
 import com.oop.GameController.Controllers.NetworkManager;
-
-import server.controllers.ServerManager;
-
 
 public class ServerUI extends JFrame implements Runnable{
                      
@@ -20,9 +14,10 @@ public class ServerUI extends JFrame implements Runnable{
     private javax.swing.JButton jButton2;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField portText;
+    private javax.swing.JTextField charText;
     private String[] ipList;
     private NetworkManager manager = NetworkManager.getInstance();
+    
     /*this.ipList = manager.getUserList().split("#");
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = ipList;
@@ -31,10 +26,12 @@ public class ServerUI extends JFrame implements Runnable{
         });
         this.repaint();
     */
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
         String responseMessage = manager.sendActiveHost();
         if(responseMessage.equals("add")){
-            manager.initialServer();
+        	manager.initialServer();
         }else manager.clearServer();
     }                                        
 
@@ -47,6 +44,7 @@ public class ServerUI extends JFrame implements Runnable{
         
         Timer timer = new Timer(10000000, Main.getInstance(2));
         timer.start();
+        
         manager.establishConnection(3005, ip);
         
     } 
@@ -59,7 +57,7 @@ public class ServerUI extends JFrame implements Runnable{
         jList1 = new javax.swing.JList<>();
         jButton2 = new javax.swing.JButton();
         ipText = new javax.swing.JTextField();
-        portText = new javax.swing.JTextField();
+        charText = new javax.swing.JTextField();
 
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,8 +93,8 @@ public class ServerUI extends JFrame implements Runnable{
 
         ipText.setText("ip");
 
-        portText.setText("port");
-        portText.setToolTipText("");
+        charText.setText("itachi");
+        charText.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,7 +113,7 @@ public class ServerUI extends JFrame implements Runnable{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ipText)
-                            .addComponent(portText))))
+                            .addComponent(charText))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -133,7 +131,7 @@ public class ServerUI extends JFrame implements Runnable{
                         .addGap(2, 2, 2)
                         .addComponent(ipText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(portText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(charText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

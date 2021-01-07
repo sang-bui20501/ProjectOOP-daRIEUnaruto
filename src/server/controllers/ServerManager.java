@@ -1,7 +1,6 @@
 package server.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ServerManager {
     private static ServerManager instance = null;

@@ -10,12 +10,12 @@
 
 ### Distributions
 
-  - @congtrung2k1
+  @congtrung2k1
   - Core system of the game 
   - Core gameplay of the game 
   - Implement UML class diagram 
-  <br/>
-  - @sang-bui20501
+  
+  @sang-bui20501
   - Networking system 
   - Design UML Diagram 
   - Gameplay mechanics 

@@ -25,8 +25,6 @@ import com.oop.GameController.Skill.SkillRender;
  */
 
 public class RenderManager extends JPanel{
-	private static final long serialVersionUID = 1L;
-	
 	SkillRender mem;
 	
 	boolean gameStatus = true;
@@ -38,7 +36,7 @@ public class RenderManager extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
-		
+		System.out.println("Re-rendered");
 		if (gameStatus) {
 			// draw background
 			BufferedImage i0 = null;

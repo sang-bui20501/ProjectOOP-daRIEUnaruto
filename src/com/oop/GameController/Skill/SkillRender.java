@@ -17,7 +17,6 @@ import com.oop.GameController.Controllers.SkillManager;
 import com.oop.GameController.Player.Player;
 
 public class SkillRender extends JPanel implements Serializable {
-	private static final long serialVersionUID = 3L;
 	
 	// info in skill_info.txt
 	public String name;			// name of skill

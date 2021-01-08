@@ -15,7 +15,6 @@ import javax.swing.JPanel;
  */
 
 public class PlayerRender extends JPanel {
-	private static final long serialVersionUID = 2L;
 	
 	final int scale = 9;
 	int bgwidth, bgheight, order;

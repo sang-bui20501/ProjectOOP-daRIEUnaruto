@@ -62,6 +62,7 @@ public class SkillManager implements ActionListener {
 	public void actionPerformed(ActionEvent e) 
 	{
 		// get existing skill of player
+		int cnt = 0;
 		for (SkillRender mem : getMainListSkill()) 
 		{
 			
@@ -104,7 +105,9 @@ public class SkillManager implements ActionListener {
 				
 				if (skillBound.intersects(skillBound_2)) 
 				{
-					mem.destroy();
+					SkillRender temp = getMainListSkill().get(cnt);
+					temp.destroy();
+					getMainListSkill().set(cnt , temp);
 					mem_2.destroy();
 				}
 			}
@@ -120,14 +123,7 @@ public class SkillManager implements ActionListener {
 				++i;
 		}
 		
-		i = 0;
-		while (i < SkillManager.getEnemyListSkill().size()) {
-			// Check the status of enemy skill
-			if (SkillManager.getEnemyListSkill().get(i).status == false) 
-				getMainListSkill().remove(i);
-			else
-				++i;
-		}
+		cnt++;
 		
 	}
 }

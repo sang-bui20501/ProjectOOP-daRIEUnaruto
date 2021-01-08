@@ -24,9 +24,7 @@ import com.oop.GameController.Skill.SkillRender;
  * player size: 205 px * 2xx px
  */
 
-public class RenderManager extends JPanel{
-	private static final long serialVersionUID = 1L;
-	
+public class RenderManager extends JPanel{	
 	SkillRender mem;
 	
 	boolean gameStatus = true;

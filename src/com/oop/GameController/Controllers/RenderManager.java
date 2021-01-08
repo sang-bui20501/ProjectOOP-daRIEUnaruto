@@ -36,7 +36,6 @@ public class RenderManager extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
-		System.out.println("Re-rendered");
 		if (gameStatus) {
 			// draw background
 			BufferedImage i0 = null;

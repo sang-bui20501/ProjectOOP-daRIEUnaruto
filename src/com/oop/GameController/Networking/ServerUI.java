@@ -51,7 +51,7 @@ public class ServerUI extends JFrame implements Runnable{
 
     private ServerUI(){
 
-        manager.establishConnection(2005, "localhost");
+        manager.establishConnection(2005, "192.168.0.100");
         //manager.establishConnection(2005, "192.168.0.100");
 
         jButton1 = new javax.swing.JButton();

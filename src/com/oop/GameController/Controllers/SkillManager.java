@@ -62,23 +62,18 @@ public class SkillManager implements ActionListener {
 	public void actionPerformed(ActionEvent e) 
 	{
 		// get existing skill of player
-		int cnt = 0;
 		for (SkillRender mem : getMainListSkill()) 
 		{
-			
 			// bound of skill
 			Rectangle skillBound = mem.getBound();
 			
-			
 			//Check intersects of skill - player
-						
+			
 			// bound of opposite player
 			Rectangle playerBound = PlayerManager.List_Player.get(mem.id % 2).getBound();
 			if (skillBound.intersects(playerBound))
 			{	
-				PlayerManager.List_Player.get(mem.id % 2).changeState = true;	
 				// Decrease HP base one shield and damage
-				System.out.println("before: " + mem.damage);
 				int tmp = mem.damage;
 				tmp -= PlayerManager.List_Player.get(mem.id % 2).shield;
 				
@@ -90,13 +85,12 @@ public class SkillManager implements ActionListener {
 					PlayerManager.List_Player.get(mem.id % 2).shield = 0;
 				
 				PlayerManager.List_Player.get(mem.id % 2).hp -= tmp;
-				System.out.println("after: " + mem.damage);
 				
 				if (PlayerManager.List_Player.get(mem.id % 2).hp <= 0)
 					PlayerManager.List_Player.get(mem.id % 2).hp = -1;
 				
 				mem.destroy();
-			}
+			}			
 			
 			// Check intersects of skill - skill
 
@@ -106,12 +100,46 @@ public class SkillManager implements ActionListener {
 				Rectangle skillBound_2 = mem_2.getBound();
 				
 				if (skillBound.intersects(skillBound_2)) 
-				{
-					SkillRender temp = getMainListSkill().get(cnt);
-					temp.destroy();
-					getMainListSkill().set(cnt , temp);
-					mem_2.destroy();
+					mem.destroy();
+			}
+		}
+		
+		for (SkillRender mem : getEnemyListSkill()) {
+			// bound of opposite skill
+			Rectangle skillBound = mem.getBound();
+		
+			// bound of this player
+			
+			// skill - player
+			Rectangle playerBound = PlayerManager.List_Player.get(mem.id % 2).getBound();
+			if (skillBound.intersects(playerBound))
+			{	
+				// Decrease HP base one shield and damage
+				int tmp = mem.damage;
+				tmp -= PlayerManager.List_Player.get(mem.id % 2).shield;
+						
+				if (tmp < 0) {
+					PlayerManager.List_Player.get(mem.id % 2).shield -= mem.damage;
+					tmp = 0;
 				}
+				else
+					PlayerManager.List_Player.get(mem.id % 2).shield = 0;
+						
+				PlayerManager.List_Player.get(mem.id % 2).hp -= tmp;
+						
+				if (PlayerManager.List_Player.get(mem.id % 2).hp <= 0)
+					PlayerManager.List_Player.get(mem.id % 2).hp = -1;
+						
+				mem.destroy();
+			}
+			
+			// skill - skill
+			for (SkillRender mem_2 : getMainListSkill()) 
+			{
+				Rectangle skillBound_2 = mem_2.getBound();
+				
+				if (skillBound.intersects(skillBound_2)) 
+					mem.destroy();
 			}
 		}
 		
@@ -125,7 +153,13 @@ public class SkillManager implements ActionListener {
 				++i;
 		}
 		
-		cnt++;
-		
+		i = 0;
+		while (i < SkillManager.getEnemyListSkill().size()) {
+			// Check the status of skill
+			if (SkillManager.getEnemyListSkill().get(i).status == false) 
+				getMainListSkill().remove(i);
+			else
+				++i;
+		}
 	}
 }

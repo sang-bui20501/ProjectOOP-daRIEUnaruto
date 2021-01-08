@@ -33,8 +33,6 @@ public class PlayerManager implements ActionListener {
 			
 			if (tmp.mana < tmp.true_mana) tmp.mana += tmp.manaRe;
 			
-			System.out.println("hp " + tmp.hp);
-			
 			if (tmp.mana <= 0 || tmp.hp <= 0) tmp.dead = true;
 		}
 	}

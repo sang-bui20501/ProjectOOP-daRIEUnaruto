@@ -50,18 +50,12 @@ public class RenderManager extends JPanel{
 			
 			
 			// draw 2 player
-			
-			PlayerRender playerframe = new PlayerRender();
 				
-			playerframe = new PlayerRender(getWidth(), getHeight(), 1, PlayerManager.List_Player.get(0));
-			playerframe.paint(g);
-			this.add(playerframe);
+			PlayerRender playerframe2 = new PlayerRender(getWidth(), getHeight(), 2, PlayerManager.List_Player.get(1));
+			playerframe2.customPaint(g);	
+			PlayerRender playerframe1 = new PlayerRender(getWidth(), getHeight(), 1, PlayerManager.List_Player.get(0));
 				
-			playerframe = new PlayerRender(getWidth(), getHeight(), 2, PlayerManager.List_Player.get(1));
-			playerframe.paint(g);
-			this.add(playerframe);
-			
-			
+			playerframe1.customPaint(g);	
 			// draw this "an chu"
 			mem = SkillManager.Mini_Skill.get(0);
 			mem.paint(g);
@@ -99,6 +93,8 @@ public class RenderManager extends JPanel{
 			}
 			g.drawImage(i0, 0, 0, getWidth(), getHeight(), null);
 		}
+		this.repaint();
+
 	}
 	
 

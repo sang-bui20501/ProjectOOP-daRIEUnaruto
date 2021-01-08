@@ -100,7 +100,6 @@ public class Main implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
 		j.repaint();
 		
 		if (gameStatus && this.mainPlayer.dead) {

@@ -68,9 +68,15 @@ public class SocketClient implements ActionListener {
             if(responsePlayer.get(1 - Main.getInstance().mainPlayerID + 1).useSkill){
                 SkillManager.List_Skill = responseSkillList;
             }
-           
+            if(responsePlayer.get(1 - Main.getInstance().mainPlayerID + 1).changeState){        
+                PlayerManager.List_Player = responsePlayer;
+            }
             if(player.get(Main.getInstance().mainPlayerID - 1).useSkill)
                 player.get(Main.getInstance().mainPlayerID - 1).useSkill = false;
+                
+            if(player.get(Main.getInstance().mainPlayerID -1 ).changeState){
+                player.get(Main.getInstance().mainPlayerID -1 ).changeState = false;
+            }
             
         } catch (Exception e1) {
             e1.printStackTrace();

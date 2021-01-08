@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  * Render image of player 
  */
 
-public class PlayerRender extends JPanel {
+public class PlayerRender  {
 	
 	final int scale = 9;
 	int bgwidth, bgheight, order;
@@ -29,7 +29,7 @@ public class PlayerRender extends JPanel {
 		this.player = player;		
 	}
 		
-	public void paint(Graphics g) {
+	public void customPaint(Graphics g) {
 		BufferedImage i = null;
 		
 		// save position to fix and deploy health

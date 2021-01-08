@@ -37,7 +37,7 @@ public class Main implements ActionListener{
 	
 	public boolean gameStatus = true;
 	
-	int mainPlayerID = 1;
+	public int mainPlayerID = 1;
 	Player mainPlayer;
 	
 	StringBuilder List_Key = new StringBuilder();
@@ -59,8 +59,10 @@ public class Main implements ActionListener{
 					// If space then generate skill and adding to list of existing skill
 					renSkill = mainPlayer.generateSkill(List_Key.toString());
 					
-					if (renSkill != null) 
+					if (renSkill != null) {
 						SkillManager.addSkill(renSkill);
+						PlayerManager.List_Player.get(mainPlayerID - 1).useSkill = true;
+					}
 					
 					// Reset list of key pressed
 					List_Key = new StringBuilder();

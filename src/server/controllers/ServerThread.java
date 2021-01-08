@@ -36,7 +36,7 @@ public class ServerThread implements Runnable {
                         this.out.flush();
                         break;
                     case "host":
-                        User u = new User(s.getInetAddress().getHostAddress());
+                        User u = new User(s.getRemoteSocketAddress().toString());
                         if(manager.isExist(u)) {
                             manager.removeUser(u);
                             this.out.println("remove");

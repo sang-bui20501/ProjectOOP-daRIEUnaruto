@@ -17,7 +17,6 @@ import com.oop.GameController.Controllers.SkillManager;
 import com.oop.GameController.Player.Player;
 
 public class SkillRender extends JPanel implements Serializable {
-	private static final long serialVersionUID = 3L;
 	
 	// info in skill_info.txt
 	public String name;			// name of skill
@@ -143,7 +142,7 @@ public class SkillRender extends JPanel implements Serializable {
 					this.wS = i.getWidth() / scale; 
 					this.hS = i.getHeight() / scale;
 				
-					player.mana -= this.mana;
+					player.mana -= this.mana; 
 				}
 				
 				this.firsttime = 0;

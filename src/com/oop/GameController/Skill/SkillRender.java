@@ -142,7 +142,7 @@ public class SkillRender extends JPanel implements Serializable {
 					this.wS = i.getWidth() / scale; 
 					this.hS = i.getHeight() / scale;
 				
-					player.mana -= this.mana;
+					player.mana -= this.mana; 
 				}
 				
 				this.firsttime = 0;

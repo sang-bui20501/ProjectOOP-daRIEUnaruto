@@ -78,6 +78,7 @@ public class SkillManager implements ActionListener {
 			{	
 				PlayerManager.List_Player.get(mem.id % 2).changeState = true;	
 				// Decrease HP base one shield and damage
+				System.out.println("before: " + mem.damage);
 				int tmp = mem.damage;
 				tmp -= PlayerManager.List_Player.get(mem.id % 2).shield;
 				
@@ -89,6 +90,7 @@ public class SkillManager implements ActionListener {
 					PlayerManager.List_Player.get(mem.id % 2).shield = 0;
 				
 				PlayerManager.List_Player.get(mem.id % 2).hp -= tmp;
+				System.out.println("after: " + mem.damage);
 				
 				if (PlayerManager.List_Player.get(mem.id % 2).hp <= 0)
 					PlayerManager.List_Player.get(mem.id % 2).hp = -1;

@@ -64,7 +64,6 @@ public class SocketClient implements ActionListener {
             responsePlayer = (ArrayList<Player>) inp.readObject();
             responseSkillList = (ArrayList<ArrayList<SkillRender>>) inp.readObject();
   
-            PlayerManager.List_Player = responsePlayer;
             if(responsePlayer.get(1 - Main.getInstance().mainPlayerID + 1).useSkill){
                 SkillManager.List_Skill = responseSkillList;
             }
